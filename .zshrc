@@ -1,4 +1,4 @@
-screenfetch
+neofetch
 POWERLEVEL9K_MODE='nerdfont-complete'
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
@@ -204,3 +204,4 @@ DISABLE_UPDATE_PROMPT=true
 
 alias dotfiles='/usr/local/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias vim='nvim'
+alias vimrc='nvim ~/.vimrc'
