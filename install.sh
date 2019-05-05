@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 ############################
-# This script creates symlinks from the home directory to any desired dotfiles in ${homedir}/.dotfiles
+# This script creates symlinks from the home directory to any desired dotfiles in ${homedir}/dotfiles
 # And also installs Homebrew Packages
 # And sets Sublime preferences
 ############################
@@ -13,7 +13,7 @@ fi
 homedir=$1
 
 # dotfiles directory
-dotfiledir=${homedir}/.dotfiles
+dotfiledir=${homedir}/dotfiles
 
 # list of files/folders to symlink in ${homedir}
 files="bash_profile bashrc zshrc zsh_design zshenv vimrc ideavim vim config aliases "
