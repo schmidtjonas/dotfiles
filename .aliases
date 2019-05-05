@@ -1,0 +1,11 @@
+alias dotfiles='/usr/local/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias vim='nvim'
+alias vimrc='nvim ~/.vimrc'
+alias python="python3"
+alias ll="ls -l"
+alias rm="rm -i"
+alias mv="mv -i"
+alias cp="cp -i"
+alias cd..="cd .."
+alias idea="/Users/Jonas/Library/Application\ Support/JetBrains/Toolbox/idea"
+
