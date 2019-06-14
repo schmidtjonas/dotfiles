@@ -30,4 +30,4 @@ for file in ${files}; do
 done
 
 # Run the Homebrew Script
-./brew.sh
+sh brew.sh

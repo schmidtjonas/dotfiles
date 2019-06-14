@@ -1,0 +1,5 @@
+neobundle.vim
+vim-airline
+vim-airline-themes
+vim-signature
+vim-smooth-scroll
