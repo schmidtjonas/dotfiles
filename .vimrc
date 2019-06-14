@@ -7,7 +7,7 @@ call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 
-" let Vundle manage Vundle, required
+" let Vundle " manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'vim-airline/vim-airline'
 "Plugin 'vim-airline/vim-airline-themes'
@@ -55,6 +55,7 @@ set incsearch           " search as characters are entered
 " set hlsearch            " highlight matches suchen: /wort<ENTER> oder einfach * und # for next occurence
 set ignorecase
 set smartcase
+set scrolloff=5
 
 nnoremap j gj
 nnoremap k gk
@@ -90,3 +91,7 @@ nnoremap <leader>7 7gt
 nnoremap <leader>8 8gt
 nnoremap <leader>9 9gt
 
+cmap WQ wq
+cmap Wq wq
+cmap W w
+cmap Q q

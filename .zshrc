@@ -1,4 +1,4 @@
-neofetch
+# neofetch
 POWERLEVEL9K_MODE='nerdfont-complete'
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
@@ -93,3 +93,15 @@ source ~/.aliases
 export EDITOR=nvim
 
 
+export PATH="/usr/local/sbin:$PATH"
+
+# react native and Android Studio
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+setopt  autocd autopushd
+autoload -U compinit
+compinit
+export PATH="/usr/local/opt/postgresql@9.6/bin:$PATH"
