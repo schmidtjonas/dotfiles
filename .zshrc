@@ -68,8 +68,8 @@ plugins=(git brew autojump common-aliases osx pip zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 # source ~/.bashrc
-source ./.zsh_design
-source ./.aliases
+source ~/dotfiles/.zsh_design
+source ~/dotfiles/.aliases
 
 [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
 # User configuration
