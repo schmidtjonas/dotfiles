@@ -1,4 +1,5 @@
-set runtimepath^=~/.vim runtimepath+=~/.vim/after
+" set runtimepath^=~/.vim runtimepath+=~/.vim/after 
+set runtimepath +=~/.config/nvim
 
 set nocompatible              " be iMproved, required
 filetype off                  " Required 
@@ -10,11 +11,11 @@ let &packpath = &runtimepath
 "NeoBundle Scripts-----------------------------
 if has('vim_starting')
   " Required:
-  set runtimepath+=/Users/Jonas/.config/nvim/bundle/neobundle.vim/
+  set runtimepath+=/Users/jonas/.config/nvim/bundle/neobundle.vim
 endif
 
 " Required:
-call neobundle#begin(expand('/Users/Jonas/.config/nvim/bundle'))
+call neobundle#begin(expand('/Users/jonas/.config/nvim/bundle'))
 
 " Let NeoBundle manage NeoBundle
 " Required:
@@ -25,6 +26,10 @@ NeoBundle 'terryma/vim-smooth-scroll'
 NeoBundle 'vim-airline/vim-airline'
 NeoBundle 'vim-airline/vim-airline-themes'
 NeoBundle 'kshenoy/vim-signature'
+NeoBundle 'Yggdroot/indentLine'
+NeoBundle 'w0rp/ale'
+NeoBundle 'ncm2/ncm2'
+NeoBundle 'ncm2/ncm2-jedi'
 
 " You can specify revision/branch/tag.
 " NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' } 
@@ -78,6 +83,22 @@ let g:airline_theme = 'badwolf'
 noremap <silent> <c-k> :call smooth_scroll#up(&scroll/5, 20, 2)<CR>
 noremap <silent> <c-j> :call smooth_scroll#down(&scroll/5, 20, 2)<CR>
 " end smooth scroll --------------------------
+"
+" start indentline ---------------------------
+"
+" end indentline -----------------------------
+" o
+"
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_linters = {'python': ['flake8']}
+
+set nobackup
+set noswapfile
+set nowritebackup
 
 syntax on               " syntaxhighlighting
 
@@ -85,6 +106,7 @@ colo iceberg
 
 set tabstop=4	        " number of visual spaces per TAB
 set softtabstop=4       " number of spaces in tab when editing
+set shiftwidth=4
 set expandtab           " tabs are spaces
 set number              " zeilennummern
 set cursorline          " highlight current line

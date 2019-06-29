@@ -1,16 +1,20 @@
-alias dotfiles='/usr/local/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+# alias dotfiles='/usr/local/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias vim='nvim'
-alias vimrc='nvim ~/.vimrc'
+alias vimrc='nvim ~/dotfiles/.nvimrc'
+alias nvimrc='nvim ~/dotfiles/.nvimrc'
+alias zshrc='nvim ~/dotfiles/.zshrc'
+alias aliases='nvim ~/dotfiles/.aliases'
 alias python="python3"
+alias pip="pip3"
 alias ll="ls -l"
 alias rm="rm -i"
 alias mv="mv -i"
 alias cp="cp -i"
 alias cd..="cd .."
-alias idea="/Users/Jonas/Library/Application\ Support/JetBrains/Toolbox/idea"
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 alias gac="git add-commit"
 alias gacm="git acm"
+alias factor="gfactor"

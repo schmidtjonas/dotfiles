@@ -1,3 +1,0 @@
-source ~/.vimrc
-inoremap vi vector<int>
-inoremap vc vector<char>

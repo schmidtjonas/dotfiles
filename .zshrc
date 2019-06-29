@@ -67,9 +67,9 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 plugins=(git brew autojump common-aliases osx pip zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
-source ~/.bashrc
-source ~/.zsh_design
-source ~/.aliases
+# source ~/.bashrc
+source ./.zsh_design
+source ./.aliases
 
 [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
 # User configuration
@@ -93,7 +93,7 @@ source ~/.aliases
 export EDITOR=nvim
 
 
-export PATH="/usr/local/sbin:$PATH"
+export PATH="/usr/local/sbin:/Users/jonas/Documents/programs:$PATH"
 
 # react native and Android Studio
 export ANDROID_HOME=$HOME/Library/Android/sdk
@@ -105,3 +105,5 @@ setopt  autocd autopushd
 autoload -U compinit
 compinit
 export PATH="/usr/local/opt/postgresql@9.6/bin:$PATH"
+fpath=(/usr/local/share/zsh-completions /usr/local/share/zsh/site-functions /usr/local/share/zsh/site-functions /usr/local/share/zsh/site-functions /Users/Jonas/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting /Users/Jonas/.oh-my-zsh/plugins/pip /Users/Jonas/.oh-my-zsh/plugins/osx /Users/Jonas/.oh-my-zsh/plugins/common-aliases /Users/Jonas/.oh-my-zsh/plugins/autojump /Users/Jonas/.oh-my-zsh/plugins/brew /Users/Jonas/.oh-my-zsh/plugins/git /Users/Jonas/.oh-my-zsh/functions /Users/Jonas/.oh-my-zsh/completions /usr/local/share/zsh/site-functions /usr/share/zsh/site-functions /usr/share/zsh/5.3/functions)
+# source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh

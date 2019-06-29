@@ -1,3 +1,4 @@
+"plugins and vundle wont work currently, better use nvim
 set nocompatible              " be iMproved, required
 filetype off                  " required <<========== We can turn it on later
 "
