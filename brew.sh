@@ -1,12 +1,15 @@
-
 brew update
 
 brew upgrade
+
+brew doctor
 
 brew install python
 brew install tree
 brew install vim
 brew install neovim
+brew install zsh
+brew install oh-my-zsh
 
 
 brew cask install visual-studio-code
