@@ -44,3 +44,5 @@ export _ZL_ECHO=1
 
 # postgresql
 export PATH="/usr/local/opt/postgresql@9.6/bin:$PATH"
+
+mkcd() { mkdir -p "$@" && cd "$@"; }

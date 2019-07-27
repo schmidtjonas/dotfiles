@@ -26,10 +26,27 @@ NeoBundle 'terryma/vim-smooth-scroll'
 NeoBundle 'vim-airline/vim-airline'
 NeoBundle 'vim-airline/vim-airline-themes'
 NeoBundle 'kshenoy/vim-signature'
+NeoBundle 'ryanoasis/vim-devicons'
+
 NeoBundle 'Yggdroot/indentLine'
+
 NeoBundle 'w0rp/ale'
+
+NeoBundle 'roxma/nvim-yarp'
 NeoBundle 'ncm2/ncm2'
+
 NeoBundle 'ncm2/ncm2-jedi'
+NeoBundle 'ncm2/ncm2-bufword'
+NeoBundle 'ncm2/ncm2-path'
+
+NeoBundle 'jiangmiao/auto-pairs'
+
+
+" Formater
+NeoBundle 'Chiel92/vim-autoformat'
+
+NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'Xuyuanp/nerdtree-git-plugin'
 
 " You can specify revision/branch/tag.
 " NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' } 
@@ -44,7 +61,39 @@ filetype plugin indent on
 " this will conveniently prompt you to install them.
 NeoBundleCheck
 "End NeoBundle Scripts-------------------------
+"
+"
+" start ncm2 customization -----------------
+autocmd BufEnter * call ncm2#enable_for_buffer()
+set completeopt=menuone,noselect,noinsert
 
+let ncm2#popup_delay = 5
+let ncm2#complete_length = [[1, 1]]
+
+" When the <Enter> key is pressed while the popup menu is visible, it only
+" hides the menu. Use this mapping to close the menu and also start a new
+" line.
+inoremap <expr> <CR> (pumvisible() ? "\<C-n>" : "\<CR>")
+
+" Use <TAB> to select the popup menu:
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+
+" suppress the annoying 'match x of y', 'The only match' and 'Pattern not
+" found' messages
+set shortmess+=c
+
+nnoremap = :Autoformat<CR>i<ESC>
+" end ncm2 customization -----------------
+"
+" start nerdtree customization -----------------
+"
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+let NERDTreeShowHidden=1
+
+map <C-n> :NERDTreeToggle<CR>
+
+" end nerdtree customization -----------------
 " start airline customization -----------------
 let g:airline_powerline_fonts = 1
 
@@ -80,8 +129,8 @@ let g:airline_theme = 'badwolf'
 " end airline --------------------------------
 "
 " start smooth scroll ------------------------
-noremap <silent> <c-k> :call smooth_scroll#up(&scroll/5, 20, 2)<CR>
-noremap <silent> <c-j> :call smooth_scroll#down(&scroll/5, 20, 2)<CR>
+ noremap <silent> <c-k> :call smooth_scroll#up(&scroll/5, 20, 2)<CR>
+ noremap <silent> <c-j> :call smooth_scroll#down(&scroll/5, 20, 2)<CR>
 " end smooth scroll --------------------------
 "
 " start indentline ---------------------------
@@ -100,6 +149,7 @@ set nobackup
 set noswapfile
 set nowritebackup
 
+let python_highlight_all=1
 syntax on               " syntaxhighlighting
 
 colo iceberg
@@ -144,11 +194,11 @@ let mapleader=" "
 set showcmd
 
 " make tabs better
-nnoremap <leader>tN :tabnew<CR>
+nnoremap <leader>tn :tabnew<CR>
 nnoremap <leader>tc :tabclose<CR>
 nnoremap <leader>tm :tabmove<CR>
-nnoremap <leader>tn :tabnext<CR>
-nnoremap <leader>tp :tabprevious<CR>
+nnoremap <leader>tN :tabnext<CR>
+nnoremap <leader>tP :tabprevious<CR>
 nnoremap <leader>1 1gt
 nnoremap <leader>2 2gt
 nnoremap <leader>3 3gt
@@ -173,3 +223,12 @@ cmap W w
 cmap Q q
 cmap Q! q!
 
+let g:elite_mode=1
+
+" Disable arrow movement, resize splits instead. 
+"if get(g:, 'elite_mode')
+"    nnoremap <Up> :resize +2<CR> 
+"    nnoremap <Down> :resize -2<CR> 
+"    nnoremap <Left> :vertical resize +2<CR> 
+"    nnoremap <Right> :vertical resize -2<CR> 
+"endif
