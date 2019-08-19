@@ -1,8 +1,9 @@
-" set runtimepath^=~/.vim runtimepath+=~/.vim/after 
+" set runtimepath^=~/.vim runtimepath+=~/.vim/after
 set runtimepath +=~/.config/nvim
+set rtp+=/usr/local/opt/fzf
 
-set nocompatible              " be iMproved, required
-filetype off                  " Required 
+set nocompatible
+filetype off                  " Required
 
 let &packpath = &runtimepath
 " source ~/.vimrc
@@ -10,8 +11,8 @@ let &packpath = &runtimepath
 
 "NeoBundle Scripts-----------------------------
 if has('vim_starting')
-  " Required:
-  set runtimepath+=/Users/jonas/.config/nvim/bundle/neobundle.vim
+    " Required:
+    set runtimepath+=/Users/jonas/.config/nvim/bundle/neobundle.vim
 endif
 
 " Required:
@@ -21,16 +22,15 @@ call neobundle#begin(expand('/Users/jonas/.config/nvim/bundle'))
 " Required:
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-" Add or remove your Bundles here:
 NeoBundle 'terryma/vim-smooth-scroll'
 NeoBundle 'vim-airline/vim-airline'
 NeoBundle 'vim-airline/vim-airline-themes'
-NeoBundle 'kshenoy/vim-signature'
+" NeoBundle 'kshenoy/vim-signature'
 NeoBundle 'ryanoasis/vim-devicons'
 
 NeoBundle 'Yggdroot/indentLine'
 
-NeoBundle 'w0rp/ale'
+" NeoBundle 'w0rp/ale'
 
 NeoBundle 'roxma/nvim-yarp'
 NeoBundle 'ncm2/ncm2'
@@ -46,10 +46,15 @@ NeoBundle 'jiangmiao/auto-pairs'
 NeoBundle 'Chiel92/vim-autoformat'
 
 NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'Xuyuanp/nerdtree-git-plugin'
+" NeoBundle 'Xuyuanp/nerdtree-git-plugin'
+" NeoBundle 'scrooloose/nerdcommenter'
+
+" NeoBundle '/usr/local/opt/fzf' "brew install fzf
+
+NeoBundle 'rafi/awesome-vim-colorschemes'
 
 " You can specify revision/branch/tag.
-" NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' } 
+" NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
 
 " Required:
 call neobundle#end()
@@ -73,10 +78,11 @@ let ncm2#complete_length = [[1, 1]]
 " When the <Enter> key is pressed while the popup menu is visible, it only
 " hides the menu. Use this mapping to close the menu and also start a new
 " line.
-inoremap <expr> <CR> (pumvisible() ? "\<C-n>" : "\<CR>")
+" inoremap <expr> <CR> (pumvisible() ? "\<C-n>" : "\<CR>")
 
 " Use <TAB> to select the popup menu:
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 
 " suppress the annoying 'match x of y', 'The only match' and 'Pattern not
 " found' messages
@@ -87,11 +93,18 @@ nnoremap = :Autoformat<CR>i<ESC>
 "
 " start nerdtree customization -----------------
 "
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 let NERDTreeShowHidden=1
 
 map <C-n> :NERDTreeToggle<CR>
+
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+let NERDTreeMinimalUI = 1
 
 " end nerdtree customization -----------------
 " start airline customization -----------------
@@ -129,8 +142,8 @@ let g:airline_theme = 'badwolf'
 " end airline --------------------------------
 "
 " start smooth scroll ------------------------
- noremap <silent> <c-k> :call smooth_scroll#up(&scroll/5, 20, 2)<CR>
- noremap <silent> <c-j> :call smooth_scroll#down(&scroll/5, 20, 2)<CR>
+noremap <silent> <c-k> :call smooth_scroll#up(&scroll/5, 20, 2)<CR>
+noremap <silent> <c-j> :call smooth_scroll#down(&scroll/5, 20, 2)<CR>
 " end smooth scroll --------------------------
 "
 " start indentline ---------------------------
@@ -152,13 +165,14 @@ set nowritebackup
 let python_highlight_all=1
 syntax on               " syntaxhighlighting
 
-colo iceberg
+colo deus
 
-set tabstop=4	        " number of visual spaces per TAB
+set tabstop=4           " number of visual spaces per TAB
 set softtabstop=4       " number of spaces in tab when editing
 set shiftwidth=4
 set expandtab           " tabs are spaces
-set number              " zeilennummern
+set relativenumber              " zeilennummern
+set number
 set cursorline          " highlight current line
 filetype indent on      " load filetype-specific indent files vlt braucht man extra indentation files dafuer
 set wildmenu            " visual autocomplete for command menu :e ~/.vimr<TAB> geht zB
@@ -173,7 +187,7 @@ set smartcase
 set scrolloff=10
 
 " remove highlights
-nnoremap <silent> <CR> :let @/ = ""<CR>           
+nnoremap <silent> <CR> :let @/ = ""<CR>
 
 " navigation
 nnoremap j gj
@@ -214,21 +228,15 @@ nnoremap <leader>h <C-w>h
 nnoremap <leader>l <C-w>l
 nnoremap <leader>j <C-w>j
 nnoremap <leader>k <C-w>k
+nnoremap <leader>, :bn<CR>
+nnoremap <leader>. :bn<CR>
 nnoremap <silent> <leader>d :bd<CR>
 
 
+" nnoremap ; :
 cmap WQ wq
 cmap Wq wq
 cmap W w
 cmap Q q
-cmap Q! q!
-
-let g:elite_mode=1
-
-" Disable arrow movement, resize splits instead. 
-"if get(g:, 'elite_mode')
-"    nnoremap <Up> :resize +2<CR> 
-"    nnoremap <Down> :resize -2<CR> 
-"    nnoremap <Left> :vertical resize +2<CR> 
-"    nnoremap <Right> :vertical resize -2<CR> 
-"endif
+cmap q1 q!
+cmap qa1 qa!
