@@ -1,3 +1,6 @@
+let mapleader=" "
+nnoremap  <leader>v :source ~/dotfiles/nvimrc<CR>:echo 'vimrc reloaded'<CR>
+"
 " set runtimepath^=~/.vim runtimepath+=~/.vim/after
 set runtimepath +=~/.config/nvim
 set rtp+=/usr/local/opt/fzf
@@ -22,7 +25,6 @@ call neobundle#begin(expand('/Users/jonas/.config/nvim/bundle'))
 " Required:
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-NeoBundle 'terryma/vim-smooth-scroll'
 NeoBundle 'vim-airline/vim-airline'
 NeoBundle 'vim-airline/vim-airline-themes'
 " NeoBundle 'kshenoy/vim-signature'
@@ -40,7 +42,6 @@ NeoBundle 'ncm2/ncm2-bufword'
 NeoBundle 'ncm2/ncm2-path'
 
 NeoBundle 'jiangmiao/auto-pairs'
-
 
 " Formater
 NeoBundle 'Chiel92/vim-autoformat'
@@ -95,7 +96,7 @@ nnoremap = :Autoformat<CR>i<ESC>
 "
 let NERDTreeShowHidden=1
 
-map <C-n> :NERDTreeToggle<CR>
+map <leader>n :NERDTreeToggle<CR>
 
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
@@ -141,15 +142,9 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme = 'badwolf'
 " end airline --------------------------------
 "
-" start smooth scroll ------------------------
-noremap <silent> <c-k> :call smooth_scroll#up(&scroll/5, 20, 2)<CR>
-noremap <silent> <c-j> :call smooth_scroll#down(&scroll/5, 20, 2)<CR>
-" end smooth scroll --------------------------
-"
 " start indentline ---------------------------
 "
 " end indentline -----------------------------
-" o
 "
 let g:ale_lint_on_enter = 0
 let g:ale_lint_on_text_changed = 'never'
@@ -204,7 +199,6 @@ nnoremap # #zz
 nnoremap g* g*zz
 nnoremap g# g#zz
 
-let mapleader=" "
 set showcmd
 
 " make tabs better

@@ -1,10 +1,10 @@
 # alias dotfiles='/usr/local/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias vim='nvim'
-alias vimrc='nvim ~/dotfiles/.nvimrc'
-alias nvimrc='nvim ~/dotfiles/.nvimrc'
-alias zshrc='nvim ~/dotfiles/.zshrc'
-alias aliases='nvim ~/dotfiles/.aliases'
-alias zshdesign='nvim ~/dotfiles/.zsh_design'
+alias vimrc='nvim ~/dotfiles/nvimrc'
+alias nvimrc='nvim ~/dotfiles/nvimrc'
+alias zshrc='nvim ~/dotfiles/zshrc'
+alias aliases='nvim ~/dotfiles/aliases'
+alias zshdesign='nvim ~/dotfiles/zsh_design'
 alias python="python3"
 alias pip="pip3"
 alias ll="ls -l"

@@ -10,8 +10,8 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 plugins=(git brew common-aliases osx pip zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
-source ~/dotfiles/.zsh_design
-source ~/dotfiles/.aliases
+source ~/dotfiles/zsh_design
+source ~/dotfiles/aliases
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
