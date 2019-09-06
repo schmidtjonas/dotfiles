@@ -22,7 +22,6 @@ endif
 call neobundle#begin(expand('/Users/jonas/.config/nvim/bundle'))
 
 " Let NeoBundle manage NeoBundle
-" Required:
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 NeoBundle 'vim-airline/vim-airline'
@@ -33,7 +32,6 @@ NeoBundle 'ryanoasis/vim-devicons'
 NeoBundle 'Yggdroot/indentLine'
 
 " NeoBundle 'w0rp/ale'
-
 NeoBundle 'roxma/nvim-yarp'
 NeoBundle 'ncm2/ncm2'
 
@@ -43,28 +41,26 @@ NeoBundle 'ncm2/ncm2-path'
 
 NeoBundle 'jiangmiao/auto-pairs'
 
-" Formater
 NeoBundle 'Chiel92/vim-autoformat'
 
 NeoBundle 'scrooloose/nerdtree'
 " NeoBundle 'Xuyuanp/nerdtree-git-plugin'
 " NeoBundle 'scrooloose/nerdcommenter'
 
-" NeoBundle '/usr/local/opt/fzf' "brew install fzf
-
 NeoBundle 'rafi/awesome-vim-colorschemes'
 
-" You can specify revision/branch/tag.
-" NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
+NeoBundle 'tpope/vim-repeat'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'tpope/vim-commentary'
 
-" Required:
+NeoBundle 'vim-scripts/ReplaceWithRegister'
+
+
 call neobundle#end()
 
 " Required:
 filetype plugin indent on
 
-" If there are uninstalled bundles found on startup,
-" this will conveniently prompt you to install them.
 NeoBundleCheck
 "End NeoBundle Scripts-------------------------
 "
@@ -89,7 +85,7 @@ inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 " found' messages
 set shortmess+=c
 
-nnoremap = :Autoformat<CR>i<ESC>
+nnoremap = :Autoformat<CR>a<ESC>
 " end ncm2 customization -----------------
 "
 " start nerdtree customization -----------------
@@ -228,6 +224,8 @@ nnoremap <silent> <leader>d :bd<CR>
 
 
 " nnoremap ; :
+nnoremap <leader>q :wqa<CR>
+nnoremap <leader>w :w<CR>
 cmap WQ wq
 cmap Wq wq
 cmap W w

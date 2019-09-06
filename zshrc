@@ -32,6 +32,9 @@ export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 
+# flutter
+export PATH=$PATH:~/development/flutter/bin
+
 setopt  autocd autopushd
 autoload -U compinit
 compinit

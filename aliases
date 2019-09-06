@@ -7,7 +7,7 @@ alias aliases='nvim ~/dotfiles/aliases'
 alias zshdesign='nvim ~/dotfiles/zsh_design'
 alias python="python3"
 alias pip="pip3"
-alias ll="ls -l"
+alias ll="ls -lisa"
 alias rm="rm -i"
 alias mv="mv -i"
 alias cp="cp -i"
@@ -19,3 +19,5 @@ alias .....="cd ../../../.."
 alias gac="git add-commit"
 alias gacm="git acm"
 alias factor="gfactor"
+alias typora="open -a typora"
+
