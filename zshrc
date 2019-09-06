@@ -1,7 +1,11 @@
+if [[ $HOST == Jonas-MacBook-Pro.local ]]; then
+  export MBP="true"
+fi
+
 POWERLEVEL9K_MODE='nerdfont-complete'
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/Jonas/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
@@ -19,11 +23,11 @@ source ~/dotfiles/aliases
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
-else
+ else
   export EDITOR='nvim'
 fi
 
-export PATH="/usr/local/sbin:/Users/jonas/Documents/programs:$PATH"
+export PATH="/usr/local/sbin:$HOME/Documents/programs:$PATH"
 
 # react native and Android Studio
 export ANDROID_HOME=$HOME/Library/Android/sdk
