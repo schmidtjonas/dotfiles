@@ -183,10 +183,9 @@ nnoremap <silent> <CR> :let @/ = ""<CR>
 " navigation
 nnoremap j gj
 nnoremap k gk
-" inoremap jk <esc>
 
-nnoremap B ^
-nnoremap E $
+map B 0
+map E $
 
 nnoremap n nzz
 nnoremap N Nzz
