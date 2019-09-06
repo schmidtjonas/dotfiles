@@ -46,8 +46,10 @@ compinit
 fpath=(/usr/local/share/zsh-completions /usr/local/share/zsh/site-functions /usr/local/share/zsh/site-functions /usr/local/share/zsh/site-functions /Users/Jonas/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting /Users/Jonas/.oh-my-zsh/plugins/pip /Users/Jonas/.oh-my-zsh/plugins/osx /Users/Jonas/.oh-my-zsh/plugins/common-aliases /Users/Jonas/.oh-my-zsh/plugins/autojump /Users/Jonas/.oh-my-zsh/plugins/brew /Users/Jonas/.oh-my-zsh/plugins/git /Users/Jonas/.oh-my-zsh/functions /Users/Jonas/.oh-my-zsh/completions /usr/local/share/zsh/site-functions /usr/share/zsh/site-functions /usr/share/zsh/5.3/functions)
 
 # z.lua
-eval "$(lua /Users/jonas/Documents/programs/z.lua/z.lua --init zsh)"
-export _ZL_ECHO=1
+if [[ $MBP == true ]]; then
+  eval "$(lua /Users/jonas/Documents/programs/z.lua/z.lua --init zsh)"
+  export _ZL_ECHO=1
+fi
 
 # postgresql
 export PATH="/usr/local/opt/postgresql@9.6/bin:$PATH"
