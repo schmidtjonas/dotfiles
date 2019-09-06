@@ -1,5 +1,5 @@
 # alias dotfiles='/usr/local/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-alias vim='nvim'
+alias v='$EDITOR'
 alias vimrc='nvim ~/dotfiles/nvimrc'
 alias nvimrc='nvim ~/dotfiles/nvimrc'
 alias zshrc='nvim ~/dotfiles/zshrc'
