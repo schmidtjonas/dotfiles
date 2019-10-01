@@ -8,10 +8,11 @@ POWERLEVEL9K_MODE='nerdfont-complete'
 export ZSH="$HOME/.oh-my-zsh"
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
+# ZSH_THEME='agnoster'
 
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-plugins=(git brew common-aliases osx pip zsh-syntax-highlighting)
+plugins=(git brew common-aliases osx pip vi-mode zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 source ~/dotfiles/zsh_design
@@ -53,5 +54,3 @@ fi
 
 # postgresql
 export PATH="/usr/local/opt/postgresql@9.6/bin:$PATH"
-
-mkcd() { mkdir -p "$@" && cd "$@"; }
