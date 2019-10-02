@@ -6,8 +6,9 @@ POWERLEVEL9K_MODE='nerdfont-complete'
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
+export DOTFILES="$HOME/dotfiles"
 
-ZSH_THEME="powerlevel10k/powerlevel10k"
+ ZSH_THEME="powerlevel10k/powerlevel10k"
 # ZSH_THEME='agnoster'
 
 DISABLE_UNTRACKED_FILES_DIRTY="true"
