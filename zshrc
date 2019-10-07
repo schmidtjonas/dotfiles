@@ -4,12 +4,11 @@ fi
 
 POWERLEVEL9K_MODE='nerdfont-complete'
 
-# Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 export DOTFILES="$HOME/dotfiles"
+export GPG_TTY=$(tty)
 
  ZSH_THEME="powerlevel10k/powerlevel10k"
-# ZSH_THEME='agnoster'
 
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
@@ -19,10 +18,6 @@ source $ZSH/oh-my-zsh.sh
 source ~/dotfiles/zsh_design
 source ~/dotfiles/aliases
 
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
  else
@@ -30,6 +25,10 @@ if [[ -n $SSH_CONNECTION ]]; then
 fi
 
 export PATH="/usr/local/sbin:$HOME/Documents/programs:$PATH"
+
+setopt  autocd autopushd
+autoload -U compinit
+compinit
 
 # react native and Android Studio
 export ANDROID_HOME=$HOME/Library/Android/sdk
@@ -40,12 +39,6 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 # flutter
 export PATH=$PATH:~/development/flutter/bin
-
-setopt  autocd autopushd
-autoload -U compinit
-compinit
-
-fpath=(/usr/local/share/zsh-completions /usr/local/share/zsh/site-functions /usr/local/share/zsh/site-functions /usr/local/share/zsh/site-functions /Users/Jonas/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting /Users/Jonas/.oh-my-zsh/plugins/pip /Users/Jonas/.oh-my-zsh/plugins/osx /Users/Jonas/.oh-my-zsh/plugins/common-aliases /Users/Jonas/.oh-my-zsh/plugins/autojump /Users/Jonas/.oh-my-zsh/plugins/brew /Users/Jonas/.oh-my-zsh/plugins/git /Users/Jonas/.oh-my-zsh/functions /Users/Jonas/.oh-my-zsh/completions /usr/local/share/zsh/site-functions /usr/share/zsh/site-functions /usr/share/zsh/5.3/functions)
 
 # z.lua
 if [[ $MBP == true ]]; then
