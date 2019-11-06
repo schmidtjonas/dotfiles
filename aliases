@@ -20,4 +20,5 @@ alias gac="git add-commit"
 alias gacm="git acm"
 alias factor="gfactor"
 alias typora="open -a typora"
+alias lc='colorls -1A --sd --gs'
 

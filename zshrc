@@ -1,18 +1,15 @@
-if [[ $HOST == Jonas-MacBook-Pro.local ]]; then
-  export MBP="true"
-fi
-
 POWERLEVEL9K_MODE='nerdfont-complete'
 
 export ZSH="$HOME/.oh-my-zsh"
 export DOTFILES="$HOME/dotfiles"
 export GPG_TTY=$(tty)
 
- ZSH_THEME="powerlevel10k/powerlevel10k"
+ZSH_THEME="powerlevel10k/powerlevel10k"
+# ZSH_THEME="spaceship"
 
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-plugins=(git brew common-aliases osx pip vi-mode zsh-syntax-highlighting)
+plugins=(git git-extras brew common-aliases osx pip vi-mode zsh-syntax-highlighting zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 source ~/dotfiles/zsh_design
@@ -24,7 +21,7 @@ if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='nvim'
 fi
 
-export PATH="/usr/local/sbin:$HOME/Documents/programs:$PATH"
+export PATH="/usr/local/sbin:$HOME/Documents/programs:$HOME/OneDrive/Studium/comprog/cpt:/Applications/Ipe.app/Contents/MacOS:$PATH"
 
 setopt  autocd autopushd
 autoload -U compinit
@@ -41,10 +38,13 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 export PATH=$PATH:~/development/flutter/bin
 
 # z.lua
-if [[ $MBP == true ]]; then
-  eval "$(lua /Users/jonas/Documents/programs/z.lua/z.lua --init zsh)"
-  export _ZL_ECHO=1
-fi
+eval "$(lua /Users/jonas/Documents/programs/z.lua/z.lua --init zsh)"
+export _ZL_ECHO=1
 
 # postgresql
 export PATH="/usr/local/opt/postgresql@9.6/bin:$PATH"
+
+if [ -f "${HOME}/.gnupg/.gpg-agent-info" ]; then
+    . "${HOME}/.gnupg/.gpg-agent-info"
+    export GPG_AGENT_INFO
+fi
