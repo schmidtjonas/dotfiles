@@ -265,7 +265,8 @@ nnoremap <silent> <leader>d :bd<CR>
 
 
 " nnoremap ; :
-nnoremap <leader>q :wqa<CR>
+nnoremap <leader>qa :wqa<CR>
+nnoremap <leader>q :wq<CR>
 nnoremap <leader>w :w<CR>
 cmap WQ wq
 cmap Wq wq
