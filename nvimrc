@@ -57,6 +57,7 @@ NeoBundle 'honza/vim-snippets'
 " with ncm
 
 NeoBundle 'airblade/vim-gitgutter'
+NeoBundle 'tpope/vim-fugitive'
 
 " NeoBundle 'vim-scripts/ReplaceWithRegister'
 
@@ -96,7 +97,7 @@ nmap <Leader>gu <Plug>(GitGutterUndoHunk)   " git undo (chunk)
 
 " fzf --------------------------------------
 nnoremap <leader>f :FZF<CR>
-nnoremap <leader>g :FZF ~<CR>
+nnoremap <leader>F :FZF ~<CR>
 nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>H :History<CR>
 nnoremap <leader>: :History:<CR>
