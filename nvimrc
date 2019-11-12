@@ -65,6 +65,9 @@ call neobundle#end()
 
 filetype plugin indent on
 NeoBundleCheck
+
+colo gruvbox
+
 " End NeoBundle Scripts-------------------------
 " latex --------------------------------------
 let g:livepreview_previewer = 'open -a Skim'
@@ -84,16 +87,21 @@ let g:gitgutter_sign_removed_first_line = '^'
 let g:gitgutter_sign_modified_removed = '<'
 
 let g:gitgutter_override_sign_column_highlight = 1
+highlight clear SignColumn
+highlight GitGutterAdd    guifg=#009900 guibg=#073642 ctermfg=2 ctermbg=0
+highlight GitGutterChange guifg=#bbbb00 guibg=#073642 ctermfg=3 ctermbg=0
+highlight GitGutterDelete guifg=#ff2222 guibg=#073642 ctermfg=1 ctermbg=0
 
 nmap <Leader>gn <Plug>(GitGutterNextHunk)  " git next
 nmap <Leader>gp <Plug>(GitGutterPrevHunk)  " git previous
-nnoremap <leader>gP :! git push<CR>  " git Push
 "
 " Hunk-add and hunk-revert for chunk staging
 nmap <Leader>ga <Plug>(GitGutterStageHunk)  " git add (chunk)
 nmap <Leader>gu <Plug>(GitGutterUndoHunk)   " git undo (chunk)
 
-
+" fugitive --------------------------------
+nmap <leader>gc :Gcommit<CR>
+nmap <leader>gp :Gpush<CR>
 
 " fzf --------------------------------------
 nnoremap <leader>f :FZF<CR>
@@ -183,7 +191,7 @@ let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
 let g:airline#extensions#tabline#enabled = 1
 
-let g:airline_theme = 'deus'
+let g:airline_theme = 'gruvbox'
 " end airline --------------------------------
 " start lint ---------------------------------
 let g:ale_lint_on_enter = 0
@@ -198,7 +206,6 @@ set nobackup
 set noswapfile
 set nowritebackup
 
-colo deus
 syntax on               " syntaxhighlighting
 set mouse=a
 
