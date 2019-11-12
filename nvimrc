@@ -5,6 +5,7 @@ set rtp+=/usr/local/opt/fzf
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 
 set nocompatible
+set updatetime=100
 
 let &packpath = &runtimepath
 
@@ -40,7 +41,6 @@ NeoBundle 'Chiel92/vim-autoformat'
 
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'Xuyuanp/nerdtree-git-plugin'
-NeoBundle 'airblade/vim-gitgutter'
 
 NeoBundle 'rafi/awesome-vim-colorschemes'
 
@@ -50,6 +50,14 @@ NeoBundle 'tpope/vim-commentary'
 
 NeoBundle 'junegunn/fzf.vim'
 
+NeoBundle 'xuhdev/vim-latex-live-preview'
+NeoBundle 'lervag/vimtex'
+NeoBundle 'honza/vim-snippets'
+" NeoBundle 'SirVer/ultisnips' " NeoBundle 'ncm2/ncm2-ultisnips' didnt work
+" with ncm
+
+NeoBundle 'airblade/vim-gitgutter'
+
 " NeoBundle 'vim-scripts/ReplaceWithRegister'
 
 call neobundle#end()
@@ -57,12 +65,60 @@ call neobundle#end()
 filetype plugin indent on
 NeoBundleCheck
 " End NeoBundle Scripts-------------------------
+" latex --------------------------------------
+let g:livepreview_previewer = 'open -a Skim'
+autocmd Filetype tex setl updatetime=700
+
+let g:tex_conceal = ""
+
+" let g:UltiSnipsJumpForwardTrigger="<c-b>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+" let g:UltiSnipsRemoveSelectModeMappings = 0
+
+" gitgutter --------------------------------
+let g:gitgutter_sign_added = '+'
+let g:gitgutter_sign_modified = '>'
+let g:gitgutter_sign_removed = '-'
+let g:gitgutter_sign_removed_first_line = '^'
+let g:gitgutter_sign_modified_removed = '<'
+
+let g:gitgutter_override_sign_column_highlight = 1
+
+nmap <Leader>gn <Plug>(GitGutterNextHunk)  " git next
+nmap <Leader>gp <Plug>(GitGutterPrevHunk)  " git previous
+nnoremap <leader>gP :! git push<CR>  " git Push
+"
+" Hunk-add and hunk-revert for chunk staging
+nmap <Leader>ga <Plug>(GitGutterStageHunk)  " git add (chunk)
+nmap <Leader>gu <Plug>(GitGutterUndoHunk)   " git undo (chunk)
+
+
+
 " fzf --------------------------------------
 nnoremap <leader>f :FZF<CR>
 nnoremap <leader>g :FZF ~<CR>
+nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>H :History<CR>
+nnoremap <leader>: :History:<CR>
+nnoremap <leader>L :Lines<CR>
+nnoremap <leader>t :BTags<CR>
 " start ncm2 customization -----------------
 autocmd BufEnter * call ncm2#enable_for_buffer()
 set completeopt=menuone,noselect,noinsert
+
+augroup my_cm_setup
+  autocmd!
+  autocmd BufEnter * call ncm2#enable_for_buffer()
+  autocmd Filetype tex call ncm2#register_source({
+          \ 'name': 'vimtex',
+          \ 'priority': 8,
+          \ 'scope': ['tex'],
+          \ 'mark': 'tex',
+          \ 'word_pattern': '\w+',
+          \ 'complete_pattern': g:vimtex#re#ncm2,
+          \ 'on_complete': ['ncm2#on_complete#omni', 'vimtex#complete#omnifunc'],
+          \ })
+augroup END
 
 let ncm2#popup_delay = 5
 let ncm2#complete_length = [[1, 1]]
@@ -71,7 +127,11 @@ let ncm2#complete_length = [[1, 1]]
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 
-" suppress the annoying 'matctrlpvim/ctrlp.vimch x of y', 'The only match' and 'Pattern not found' messages
+" let g:UltiSnipsExpandTrigger="<tab>"
+
+" inoremap <silent> <expr> <TAB> ncm2_ultisnips#expand_or("\<TAB>", 'n')
+
+" suppress the annoying 'match' and 'Pattern not found' messages
 set shortmess+=c
 
 nnoremap = :Autoformat<CR>a<ESC>
@@ -137,7 +197,7 @@ set nobackup
 set noswapfile
 set nowritebackup
 
-colo deus 
+colo deus
 syntax on               " syntaxhighlighting
 set mouse=a
 
