@@ -1,5 +1,4 @@
 let mapleader=" "
-nnoremap  <leader>v :source ~/dotfiles/nvimrc<CR>:echo 'nvimrc reloaded'<CR>
 set runtimepath +=~/.config/nvim
 set rtp+=/usr/local/opt/fzf
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
@@ -9,7 +8,8 @@ set updatetime=100
 
 let &packpath = &runtimepath
 
-"NeoBundle Scripts-----------------------------
+" NeoBundle Scripts-----------------------------------------
+
 if has('vim_starting')
     set runtimepath+=/Users/jonas/.config/nvim/bundle/neobundle.vim
 endif
@@ -17,8 +17,7 @@ endif
 " Required:
 call neobundle#begin(expand('/Users/jonas/.config/nvim/bundle'))
 
-" Let NeoBundle manage NeoBundle
-NeoBundleFetch 'Shougo/neobundle.vim'
+NeoBundleFetch 'Shougo/neobundle.vim'       " let NeoBundle manage NeoBundle
 
 NeoBundle 'vim-airline/vim-airline'
 NeoBundle 'vim-airline/vim-airline-themes'
@@ -53,8 +52,7 @@ NeoBundle 'junegunn/fzf.vim'
 NeoBundle 'xuhdev/vim-latex-live-preview'
 NeoBundle 'lervag/vimtex'
 NeoBundle 'honza/vim-snippets'
-" NeoBundle 'SirVer/ultisnips' " NeoBundle 'ncm2/ncm2-ultisnips' didnt work
-" with ncm
+" NeoBundle 'SirVer/ultisnips' " NeoBundle 'ncm2/ncm2-ultisnips' didnt work with ncm2
 
 NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'tpope/vim-fugitive'
@@ -68,18 +66,15 @@ NeoBundleCheck
 
 colo gruvbox
 
-" End NeoBundle Scripts-------------------------
-" latex --------------------------------------
+" latex --------------------------------------------------
+
 let g:livepreview_previewer = 'open -a Skim'
 autocmd Filetype tex setl updatetime=700
 
 let g:tex_conceal = ""
 
-" let g:UltiSnipsJumpForwardTrigger="<c-b>"
-" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-" let g:UltiSnipsRemoveSelectModeMappings = 0
+" gitgutter -----------------------------------------------
 
-" gitgutter --------------------------------
 let g:gitgutter_sign_added = '+'
 let g:gitgutter_sign_modified = '>'
 let g:gitgutter_sign_removed = '-'
@@ -92,18 +87,21 @@ highlight GitGutterAdd    guifg=#009900 guibg=#073642 ctermfg=2 ctermbg=0
 highlight GitGutterChange guifg=#bbbb00 guibg=#073642 ctermfg=3 ctermbg=0
 highlight GitGutterDelete guifg=#ff2222 guibg=#073642 ctermfg=1 ctermbg=0
 
-nmap <Leader>gn <Plug>(GitGutterNextHunk)  " git next
-nmap <Leader>gp <Plug>(GitGutterPrevHunk)  " git previous
-"
+nmap <Leader>ghp <Plug>(GitGutterPreviewHunk)  " git next
+
 " Hunk-add and hunk-revert for chunk staging
 nmap <Leader>ga <Plug>(GitGutterStageHunk)  " git add (chunk)
 nmap <Leader>gu <Plug>(GitGutterUndoHunk)   " git undo (chunk)
 
-" fugitive --------------------------------
-nmap <leader>gc :Gcommit<CR>
-nmap <leader>gp :Gpush<CR>
+nmap ]g <Plug>(GitGutterNextHunk)
+nmap [g <Plug>(GitGutterPrevHunk)
+" fugitive -------------------------------------------------
 
-" fzf --------------------------------------
+nmap <leader>gc :Gcommit<CR>
+nmap <leader>gP :Gpush<CR>
+
+" fzf -------------------------------------------------------
+
 nnoremap <leader>f :FZF<CR>
 nnoremap <leader>F :FZF ~<CR>
 nnoremap <leader>b :Buffers<CR>
@@ -111,22 +109,24 @@ nnoremap <leader>H :History<CR>
 nnoremap <leader>: :History:<CR>
 nnoremap <leader>L :Lines<CR>
 nnoremap <leader>t :BTags<CR>
-" start ncm2 customization -----------------
+
+" ncm2 ------------------------------------------------------
+
 autocmd BufEnter * call ncm2#enable_for_buffer()
 set completeopt=menuone,noselect,noinsert
 
 augroup my_cm_setup
-  autocmd!
-  autocmd BufEnter * call ncm2#enable_for_buffer()
-  autocmd Filetype tex call ncm2#register_source({
-          \ 'name': 'vimtex',
-          \ 'priority': 8,
-          \ 'scope': ['tex'],
-          \ 'mark': 'tex',
-          \ 'word_pattern': '\w+',
-          \ 'complete_pattern': g:vimtex#re#ncm2,
-          \ 'on_complete': ['ncm2#on_complete#omni', 'vimtex#complete#omnifunc'],
-          \ })
+    autocmd!
+    autocmd BufEnter * call ncm2#enable_for_buffer()
+    autocmd Filetype tex call ncm2#register_source({
+                \ 'name': 'vimtex',
+                \ 'priority': 8,
+                \ 'scope': ['tex'],
+                \ 'mark': 'tex',
+                \ 'word_pattern': '\w+',
+                \ 'complete_pattern': g:vimtex#re#ncm2,
+                \ 'on_complete': ['ncm2#on_complete#omni', 'vimtex#complete#omnifunc'],
+                \ })
 augroup END
 
 let ncm2#popup_delay = 5
@@ -136,7 +136,6 @@ let ncm2#complete_length = [[1, 1]]
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 
-" let g:UltiSnipsExpandTrigger="<tab>"
 
 " inoremap <silent> <expr> <TAB> ncm2_ultisnips#expand_or("\<TAB>", 'n')
 
@@ -144,8 +143,9 @@ inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 set shortmess+=c
 
 nnoremap = :Autoformat<CR>a<ESC>
-" end ncm2 customization -----------------
-" start nerdtree customization -----------------
+
+" nerdtree -----------------------------------------------------
+
 let NERDTreeShowHidden=1
 
 map <silent> <leader>n :NERDTreeToggle<CR>
@@ -159,8 +159,8 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let NERDTreeMinimalUI = 1
 
-" end nerdtree customization -----------------
-" start airline customization -----------------
+" airline -----------------------------------------------------
+
 let g:airline_powerline_fonts = 1
 
 if !exists('g:airline_symbols')
@@ -192,8 +192,9 @@ let g:airline_symbols.linenr = ''
 let g:airline#extensions#tabline#enabled = 1
 
 let g:airline_theme = 'gruvbox'
-" end airline --------------------------------
-" start lint ---------------------------------
+
+" lint ------------------------------------------------
+
 let g:ale_lint_on_enter = 0
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_echo_msg_error_str = 'E'
@@ -202,34 +203,34 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_linters = {'python': ['flake8']}
 let python_highlight_all=1
 
+" general ---------------------------------------------
+
 set nobackup
 set noswapfile
 set nowritebackup
 
-syntax on               " syntaxhighlighting
-set mouse=a
+syntax on
+set mouse=a             " use mouse in vim
 
 set tabstop=4           " number of visual spaces per TAB
 set softtabstop=4       " number of spaces in tab when editing
 set shiftwidth=4
 set expandtab           " tabs are spaces
 set relativenumber      " zeilennummern
-set number
+set number              " zeilennummern
 set cursorline          " highlight current line
-set wildmenu            " visual autocomplete for command menu :e ~/.vimr<TAB> geht zB
-set lazyredraw          " redraw only when we need to. macht vim scheinbar schneller
+set wildmenu            " visual autocomplete for command menu :e ~/.vimr<TAB> 
+set lazyredraw          " redraw only when we need to. 
 set showmatch           " highlight matching [{()}]
+set scrolloff=10
 
 set incsearch           " search as characters are entered
 set hlsearch            " highlight matches suchen: /wort<ENTER> oder einfach * und # for next occurence
 set ignorecase
 set smartcase
-set scrolloff=10
 
-" remove highlights
-nnoremap <silent> <CR> :let @/ = ""<CR>
+nnoremap <silent> <CR> :let @/ = ""<CR> 
 
-" navigation
 nnoremap j gj
 nnoremap k gk
 
@@ -270,9 +271,6 @@ nnoremap <leader>, :bp<CR>
 nnoremap <leader>. :bn<CR>
 nnoremap <silent> <leader>d :bd<CR>
 
-
-" nnoremap ; :
-nnoremap <leader>qa :wqa<CR>
 nnoremap <leader>q :wq<CR>
 nnoremap <leader>w :w<CR>
 cmap WQ wq
@@ -281,4 +279,4 @@ cmap W w
 cmap Q q
 cmap q1 q!
 cmap qa1 qa!
-
+nnoremap  <leader>v :source ~/dotfiles/nvimrc<CR>:echo 'nvimrc reloaded'<CR>
