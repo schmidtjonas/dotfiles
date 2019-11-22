@@ -20,5 +20,7 @@ alias gac="git add-commit"
 alias gacm="git acm"
 alias factor="gfactor"
 alias typora="open -a typora"
-alias lc='colorls -1A --sd --gs'
-alias ctags="`brew --prefix`/bin/ctags"
+alias l='colorls -1A --sd --gs'
+# alias ctags="`brew --prefix`/bin/ctags"
+alias zi="z -i"  # interactive selection
+
