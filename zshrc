@@ -21,7 +21,7 @@ if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='nvim'
 fi
 
-export PATH="/usr/local/sbin:$HOME/Documents/programs:$HOME/OneDrive/Studium/comprog/cpt:/Applications/Ipe.app/Contents/MacOS:$PATH"
+export PATH="/usr/local/sbin:$HOME/Documents/programs:$HOME/Documents/comprog/CPT:/Applications/Ipe.app/Contents/MacOS:$PATH"
 
 setopt  autocd autopushd
 autoload -U compinit
