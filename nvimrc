@@ -279,4 +279,12 @@ cmap W w
 cmap Q q
 cmap q1 q!
 cmap qa1 qa!
+
+
+" easy system clipboard copy/paste
+noremap <space>y "+y
+noremap <space>Y "+Y
+noremap <space>p "+p
+noremap <space>P "+P
+
 nnoremap  <leader>v :source ~/dotfiles/nvimrc<CR>:echo 'nvimrc reloaded'<CR>
