@@ -1,5 +1,5 @@
 # alias dotfiles='/usr/local/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-alias v='$EDITOR'
+alias v='nvim'
 alias vimrc='nvim ~/dotfiles/nvimrc'
 alias nvimrc='nvim ~/dotfiles/nvimrc'
 alias zshrc='nvim ~/dotfiles/zshrc'
@@ -20,7 +20,7 @@ alias gac="git add-commit"
 alias gacm="git acm"
 alias factor="gfactor"
 alias typora="open -a typora"
-alias l='colorls -1A --sd --gs'
+alias lc='colorls -1A --sd --gs'
 # alias ctags="`brew --prefix`/bin/ctags"
 alias zi="z -i"  # interactive selection
 
