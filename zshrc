@@ -5,7 +5,6 @@ export DOTFILES="$HOME/dotfiles"
 export GPG_TTY=$(tty)
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
-# ZSH_THEME="spaceship"
 
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
@@ -21,7 +20,9 @@ if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='nvim'
 fi
 
-export PATH="/usr/local/sbin:$HOME/Documents/programs:$HOME/Documents/comprog/CPT:/Applications/Ipe.app/Contents/MacOS:$PATH"
+export PATH="/usr/local/sbin:$HOME/Documents/programs:$HOME/Documents/comprog/CPT:/Applications/Ipe.app/Contents/MacOS:/usr/local/opt/qt/bin:$PATH"
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 setopt  autocd autopushd
 autoload -U compinit
@@ -40,6 +41,10 @@ export PATH=$PATH:~/development/flutter/bin
 # z.lua
 eval "$(lua /Users/jonas/Documents/programs/z.lua/z.lua --init zsh)"
 export _ZL_ECHO=1
+
+# vi-mode
+export KEYTIMEOUT=1
+bindkey -M vicmd '?' history-incremental-search-backward
 
 # postgresql
 export PATH="/usr/local/opt/postgresql@9.6/bin:$PATH"

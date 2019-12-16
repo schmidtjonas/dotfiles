@@ -17,16 +17,17 @@ endif
 " Required:
 call neobundle#begin(expand('/Users/jonas/.config/nvim/bundle'))
 
-NeoBundleFetch 'Shougo/neobundle.vim'       " let NeoBundle manage NeoBundle
+NeoBundleFetch 'Shougo/neobundle.vim'
 
+NeoBundle 'junegunn/goyo.vim'
 NeoBundle 'vim-airline/vim-airline'
 NeoBundle 'vim-airline/vim-airline-themes'
 " NeoBundle 'kshenoy/vim-signature'
 NeoBundle 'ryanoasis/vim-devicons'
 
-NeoBundle 'Yggdroot/indentLine'
+" NeoBundle 'Yggdroot/indentLine'
 
-" NeoBundle 'w0rp/ale'
+NeoBundle 'w0rp/ale'
 NeoBundle 'roxma/nvim-yarp'
 NeoBundle 'ncm2/ncm2'
 
@@ -228,6 +229,7 @@ set incsearch           " search as characters are entered
 set hlsearch            " highlight matches suchen: /wort<ENTER> oder einfach * und # for next occurence
 set ignorecase
 set smartcase
+set conceallevel=0
 
 nnoremap <silent> <CR> :let @/ = ""<CR> 
 
@@ -288,3 +290,5 @@ noremap <space>p "+p
 noremap <space>P "+P
 
 nnoremap  <leader>v :source ~/dotfiles/nvimrc<CR>:echo 'nvimrc reloaded'<CR>
+
+nnoremap <silent> <leader>gg :Goyo<CR>ggG
