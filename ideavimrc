@@ -37,13 +37,13 @@ nnoremap <leader>b :action ToggleLineBreakpoint<cr>
 nnoremap <leader>i :action GotoImplementation<cr>
 nnoremap <leader>u :action FindUsages<cr>
 nnoremap <leader>k :action HighlightUsagesInFile<cr>
-nnoremap ,R :action RunClass<cr>
-nnoremap ,r :action Run<cr>
-nnoremap ,s :action Stop<cr>
+nnoremap <C-B> :action RunClass<cr>
+nnoremap <C-b> :action Run<cr>
+nnoremap <C-s> :action Stop<cr>
 nnoremap - :action ActivateRunToolWindow<cr>
 nnoremap = :action ActivateDebugToolWindow<cr>
-nnoremap ,D :action DebugClass<cr>
-nnoremap ,d :action Debug<cr>
+nnoremap <C-D> :action DebugClass<cr>:action ActivateRunToolWindow<cr>
+nnoremap <C-d> :action Debug<cr>:action ActivateRunToolWindow<cr>
 nnoremap ,c :action CheckStyleCurrentFileAction<cr>
 
 " TODO add Debug tools shortcuts

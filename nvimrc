@@ -4,7 +4,7 @@ set rtp+=/usr/local/opt/fzf
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 
 set nocompatible
-set updatetime=100
+set updatetime=2000
 
 let &packpath = &runtimepath
 
@@ -50,13 +50,13 @@ NeoBundle 'tpope/vim-commentary'
 
 NeoBundle 'junegunn/fzf.vim'
 
-NeoBundle 'xuhdev/vim-latex-live-preview'
 NeoBundle 'lervag/vimtex'
 NeoBundle 'honza/vim-snippets'
 " NeoBundle 'SirVer/ultisnips' " NeoBundle 'ncm2/ncm2-ultisnips' didnt work with ncm2
 
 NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'tpope/vim-fugitive'
+NeoBundle '907th/vim-auto-save'
 
 " NeoBundle 'vim-scripts/ReplaceWithRegister'
 
@@ -69,10 +69,16 @@ colo gruvbox
 
 " latex --------------------------------------------------
 
-let g:livepreview_previewer = 'open -a Skim'
-autocmd Filetype tex setl updatetime=700
+let g:vimtex_view_method = 'skim'
+let g:vimtex_quickfix_enabled = 0
 
-let g:tex_conceal = ""
+let g:auto_save = 0
+let g:auto_save_silent = 1
+let g:auto_save_events = ["TextChangedI", "TextChanged", "InsertLeave"]
+augroup ft_tex
+  au!
+  au FileType tex let b:auto_save = 1
+augroup END
 
 " gitgutter -----------------------------------------------
 
@@ -233,18 +239,18 @@ set conceallevel=0
 
 nnoremap <silent> <CR> :let @/ = ""<CR> 
 
-nnoremap j gj
-nnoremap k gk
+nnoremap <silent> j gj
+nnoremap <silent> k gk
 
 map B 0
 map E $
 
-nnoremap n nzz
-nnoremap N Nzz
-nnoremap * *zz
-nnoremap # #zz
-nnoremap g* g*zz
-nnoremap g# g#zz
+" nnoremap n nzz
+" nnoremap N Nzz
+" nnoremap * *zz
+" nnoremap # #zz
+" nnoremap g* g*zz
+" nnoremap g# g#zz
 
 set showcmd
 
@@ -281,7 +287,6 @@ cmap W w
 cmap Q q
 cmap q1 q!
 cmap qa1 qa!
-
 
 " easy system clipboard copy/paste
 noremap <space>y "+y

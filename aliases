@@ -24,3 +24,4 @@ alias lc='colorls -1A --sd --gs'
 # alias ctags="`brew --prefix`/bin/ctags"
 alias zi="z -i"  # interactive selection
 alias :q=exit
+alias r=ranger
