@@ -245,14 +245,8 @@ nnoremap <silent> k gk
 map B 0
 map E $
 
-" nnoremap n nzz
-" nnoremap N Nzz
-" nnoremap * *zz
-" nnoremap # #zz
-" nnoremap g* g*zz
-" nnoremap g# g#zz
-
 set showcmd
+nnoremap <expr> gb '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 " make tabs better
 nnoremap <leader>tn :tabnew<CR>
