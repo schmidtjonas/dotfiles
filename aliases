@@ -5,6 +5,7 @@ alias nvimrc='nvim ~/dotfiles/nvimrc'
 alias zshrc='nvim ~/dotfiles/zshrc'
 alias aliases='nvim ~/dotfiles/aliases'
 alias zshdesign='nvim ~/dotfiles/zsh_design'
+alias vzf='nvim $(fzf --height 50%)'
 alias python="python3"
 alias pip="pip3"
 alias ll="ls -lisa"

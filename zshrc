@@ -46,9 +46,6 @@ export _ZL_ECHO=1
 export KEYTIMEOUT=1
 bindkey -M vicmd '?' history-incremental-search-backward
 
-# postgresql
-export PATH="/usr/local/opt/postgresql@9.6/bin:$PATH"
-
 if [ -f "${HOME}/.gnupg/.gpg-agent-info" ]; then
     . "${HOME}/.gnupg/.gpg-agent-info"
     export GPG_AGENT_INFO
