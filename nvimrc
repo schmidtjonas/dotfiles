@@ -1,12 +1,11 @@
+lan en_GB.ISO8859-15 " use english from `locale -a`
 let mapleader=" "
-set runtimepath +=~/.config/nvim
-set rtp+=/usr/local/opt/fzf
+" set rtp+=~/.config/nvim
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+let &packpath = &runtimepath
 
 set nocompatible
 set updatetime=2000
-
-let &packpath = &runtimepath
 
 " NeoBundle Scripts-----------------------------------------
 
@@ -19,30 +18,26 @@ call neobundle#begin(expand('/Users/jonas/.config/nvim/bundle'))
 
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-NeoBundle 'junegunn/goyo.vim'
 NeoBundle 'vim-airline/vim-airline'
 NeoBundle 'vim-airline/vim-airline-themes'
-" NeoBundle 'kshenoy/vim-signature'
 NeoBundle 'ryanoasis/vim-devicons'
-
-" NeoBundle 'Yggdroot/indentLine'
+NeoBundle 'rafi/awesome-vim-colorschemes'
 
 NeoBundle 'w0rp/ale'
 NeoBundle 'roxma/nvim-yarp'
 NeoBundle 'ncm2/ncm2'
-
 NeoBundle 'ncm2/ncm2-jedi'
 NeoBundle 'ncm2/ncm2-bufword'
 NeoBundle 'ncm2/ncm2-path'
+NeoBundle 'ncm2/ncm2-pyclang' " not working
 
 NeoBundle 'jiangmiao/auto-pairs'
-
 NeoBundle 'Chiel92/vim-autoformat'
 
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'Xuyuanp/nerdtree-git-plugin'
-
-NeoBundle 'rafi/awesome-vim-colorschemes'
+NeoBundle 'airblade/vim-gitgutter'
+NeoBundle 'tpope/vim-fugitive'
 
 NeoBundle 'tpope/vim-repeat'
 NeoBundle 'tpope/vim-surround'
@@ -51,21 +46,12 @@ NeoBundle 'tpope/vim-commentary'
 NeoBundle 'junegunn/fzf.vim'
 
 NeoBundle 'lervag/vimtex'
-NeoBundle 'honza/vim-snippets'
-" NeoBundle 'SirVer/ultisnips' " NeoBundle 'ncm2/ncm2-ultisnips' didnt work with ncm2
-
-NeoBundle 'airblade/vim-gitgutter'
-NeoBundle 'tpope/vim-fugitive'
 NeoBundle '907th/vim-auto-save'
-
-" NeoBundle 'vim-scripts/ReplaceWithRegister'
 
 call neobundle#end()
 
 filetype plugin indent on
 NeoBundleCheck
-
-colo gruvbox
 
 " latex --------------------------------------------------
 
@@ -76,8 +62,17 @@ let g:auto_save = 0
 let g:auto_save_silent = 1
 let g:auto_save_events = ["TextChangedI", "TextChanged", "InsertLeave"]
 augroup ft_tex
-  au!
-  au FileType tex let b:auto_save = 1
+    au!
+    autocmd FileType tex let b:auto_save = 1
+    autocmd Filetype tex call ncm2#register_source({
+                \ 'name': 'vimtex',
+                \ 'priority': 8,
+                \ 'scope': ['tex'],
+                \ 'mark': 'tex',
+                \ 'word_pattern': '\w+',
+                \ 'complete_pattern': g:vimtex#re#ncm2,
+                \ 'on_complete': ['ncm2#on_complete#omni', 'vimtex#complete#omnifunc'],
+                \ })
 augroup END
 
 " gitgutter -----------------------------------------------
@@ -94,14 +89,12 @@ highlight GitGutterAdd    guifg=#009900 guibg=#073642 ctermfg=2 ctermbg=0
 highlight GitGutterChange guifg=#bbbb00 guibg=#073642 ctermfg=3 ctermbg=0
 highlight GitGutterDelete guifg=#ff2222 guibg=#073642 ctermfg=1 ctermbg=0
 
-nmap <Leader>ghp <Plug>(GitGutterPreviewHunk)  " git next
-
-" Hunk-add and hunk-revert for chunk staging
-nmap <Leader>ga <Plug>(GitGutterStageHunk)  " git add (chunk)
-nmap <Leader>gu <Plug>(GitGutterUndoHunk)   " git undo (chunk)
+nmap <Leader>ga <Plug>(GitGutterStageHunk)
+nmap <Leader>gu <Plug>(GitGutterUndoHunk)
 
 nmap ]g <Plug>(GitGutterNextHunk)
 nmap [g <Plug>(GitGutterPrevHunk)
+
 " fugitive -------------------------------------------------
 
 nmap <leader>gc :Gcommit<CR>
@@ -109,6 +102,7 @@ nmap <leader>gP :Gpush<CR>
 
 " fzf -------------------------------------------------------
 
+set rtp+=/usr/local/opt/fzf
 nnoremap <leader>f :FZF<CR>
 nnoremap <leader>F :FZF ~<CR>
 nnoremap <leader>b :Buffers<CR>
@@ -122,20 +116,6 @@ nnoremap <leader>t :BTags<CR>
 autocmd BufEnter * call ncm2#enable_for_buffer()
 set completeopt=menuone,noselect,noinsert
 
-augroup my_cm_setup
-    autocmd!
-    autocmd BufEnter * call ncm2#enable_for_buffer()
-    autocmd Filetype tex call ncm2#register_source({
-                \ 'name': 'vimtex',
-                \ 'priority': 8,
-                \ 'scope': ['tex'],
-                \ 'mark': 'tex',
-                \ 'word_pattern': '\w+',
-                \ 'complete_pattern': g:vimtex#re#ncm2,
-                \ 'on_complete': ['ncm2#on_complete#omni', 'vimtex#complete#omnifunc'],
-                \ })
-augroup END
-
 let ncm2#popup_delay = 5
 let ncm2#complete_length = [[1, 1]]
 
@@ -143,13 +123,20 @@ let ncm2#complete_length = [[1, 1]]
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 
-
-" inoremap <silent> <expr> <TAB> ncm2_ultisnips#expand_or("\<TAB>", 'n')
-
 " suppress the annoying 'match' and 'Pattern not found' messages
 set shortmess+=c
+let g:ncm2_pyclang#library_path = '/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
 
-nnoremap = :Autoformat<CR>a<ESC>
+" lint ------------------------------------------------
+
+let g:ale_lint_on_enter = 0
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_linters = {'python': ['flake8']}
+let python_highlight_all=1
+
+nnoremap = :Autoformat<CR>
 
 " nerdtree -----------------------------------------------------
 
@@ -200,17 +187,9 @@ let g:airline#extensions#tabline#enabled = 1
 
 let g:airline_theme = 'gruvbox'
 
-" lint ------------------------------------------------
-
-let g:ale_lint_on_enter = 0
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_linters = {'python': ['flake8']}
-let python_highlight_all=1
-
 " general ---------------------------------------------
+
+colo gruvbox
 
 set nobackup
 set noswapfile
@@ -218,16 +197,13 @@ set nowritebackup
 
 syntax on
 set mouse=a             " use mouse in vim
-
 set tabstop=4           " number of visual spaces per TAB
 set softtabstop=4       " number of spaces in tab when editing
 set shiftwidth=4
 set expandtab           " tabs are spaces
-set relativenumber      " zeilennummern
 set number              " zeilennummern
 set cursorline          " highlight current line
-set wildmenu            " visual autocomplete for command menu :e ~/.vimr<TAB> 
-set lazyredraw          " redraw only when we need to. 
+set lazyredraw          " redraw only when we need to.
 set showmatch           " highlight matching [{()}]
 set scrolloff=10
 
@@ -236,17 +212,12 @@ set hlsearch            " highlight matches suchen: /wort<ENTER> oder einfach * 
 set ignorecase
 set smartcase
 set conceallevel=0
-
-nnoremap <silent> <CR> :let @/ = ""<CR> 
+nnoremap <silent> <ESC> :let @/ = ""<CR><ESC>
 
 nnoremap <silent> j gj
 nnoremap <silent> k gk
-
 map B 0
 map E $
-
-set showcmd
-nnoremap <expr> gb '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 " make tabs better
 nnoremap <leader>tn :tabnew<CR>
@@ -271,16 +242,10 @@ nnoremap <leader>j <C-w>j
 nnoremap <leader>k <C-w>k
 nnoremap <leader>, :bp<CR>
 nnoremap <leader>. :bn<CR>
-nnoremap <silent> <leader>d :bd<CR>
+nnoremap <silent> <leader>d :bw<CR>
 
 nnoremap <leader>q :wq<CR>
 nnoremap <leader>w :w<CR>
-cmap WQ wq
-cmap Wq wq
-cmap W w
-cmap Q q
-cmap q1 q!
-cmap qa1 qa!
 
 " easy system clipboard copy/paste
 noremap <space>y "+y
@@ -288,6 +253,4 @@ noremap <space>Y "+Y
 noremap <space>p "+p
 noremap <space>P "+P
 
-nnoremap  <leader>v :source ~/dotfiles/nvimrc<CR>:echo 'nvimrc reloaded'<CR>
-
-nnoremap <silent> <leader>gg :Goyo<CR>ggG
+nnoremap <leader>v :source ~/dotfiles/nvimrc<CR>:echo 'nvimrc reloaded'<CR>
