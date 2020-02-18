@@ -1,4 +1,4 @@
-lan en_GB.ISO8859-15 " use english from `locale -a`
+" lan en_GB.ISO8859-15 " use english from `locale -a`, broken with terminal
 let mapleader=" "
 " set rtp+=~/.config/nvim
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
@@ -246,5 +246,7 @@ noremap <space>y "+y
 noremap <space>Y "+Y
 noremap <space>p "+p
 noremap <space>P "+P
+
+tnoremap <C-n> <C-\><C-n>
 
 nnoremap <leader>v :source ~/dotfiles/nvimrc<CR>:echo 'nvimrc reloaded'<CR>
