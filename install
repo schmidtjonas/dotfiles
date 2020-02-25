@@ -1,0 +1,6 @@
+#! /bin/bash
+
+ln -sv ~/dotfiles/nvimrc ~/.config/nvim/init.vim
+ln -sv ~/dotfiles/zshrc ~/.config/zsh/.zshrc
+ln -sv ~/dotfiles/zprofile ~/.zprofile
+cp -i ~/dotfiles/karabiner.json ~/.config/karabiner/karabiner.json
