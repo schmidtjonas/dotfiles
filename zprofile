@@ -1,16 +1,17 @@
+export PATH="/usr/local/sbin:$HOME/Documents/programs:$HOME/Documents/comprog/CPT:/Applications/Ipe.app/Contents/MacOS:/usr/local/opt/qt/bin:$PATH"
+
 export ZSH="$HOME/.oh-my-zsh"
 export DOTFILES="$HOME/dotfiles"
 export ZDOTDIR="$HOME/.config/zsh"
+export UPDATE_ZSH_DAYS=7
+export KEYTIMEOUT=1 # vi-mode
 
-export PATH="/usr/local/sbin:$HOME/Documents/programs:$HOME/Documents/comprog/CPT:/Applications/Ipe.app/Contents/MacOS:/usr/local/opt/qt/bin:$PATH"
 
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
  else
   export EDITOR='nvim'
 fi
-
-export KEYTIMEOUT=1 # vi-mode
 
 # other programs
 eval "$(lua /Users/jonas/Documents/programs/z.lua/z.lua --init zsh)"
