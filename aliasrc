@@ -5,7 +5,7 @@ alias nvimrc='nvim ~/dotfiles/nvimrc'
 alias zshrc='nvim ~/dotfiles/zshrc'
 alias aliasrc='nvim ~/dotfiles/aliasrc'
 alias zshdesign='nvim ~/dotfiles/zsh_design'
-alias vzf='nvim $(fzf --height 50%)'
+alias se='$EDITOR $(fzf)'
 alias python="python3"
 alias pip="pip3"
 alias ll="ls -lisa"
@@ -19,5 +19,4 @@ alias gacm="git acm"
 alias factor="gfactor"
 alias lc='colorls -1A --sd --gs'
 alias zi="z -i"  # interactive selection
-alias :q=exit
-alias r=ranger
+command -v nvim > /dev/null && alias vim='nvim' vimdiff='nvim -d'

@@ -89,9 +89,9 @@ highlight GitGutterAdd    guifg=#009900 guibg=#073642 ctermfg=2 ctermbg=0
 highlight GitGutterChange guifg=#bbbb00 guibg=#073642 ctermfg=3 ctermbg=0
 highlight GitGutterDelete guifg=#ff2222 guibg=#073642 ctermfg=1 ctermbg=0
 
+let g:gitgutter_map_keys = 0
 nmap <Leader>ga <Plug>(GitGutterStageHunk)
 nmap <Leader>gu <Plug>(GitGutterUndoHunk)
-
 nmap ]g <Plug>(GitGutterNextHunk)
 nmap [g <Plug>(GitGutterPrevHunk)
 
@@ -106,7 +106,7 @@ set rtp+=/usr/local/opt/fzf
 nnoremap <leader>f :FZF<CR>
 nnoremap <leader>F :FZF ~<CR>
 nnoremap <leader>b :Buffers<CR>
-nnoremap <leader>H :History<CR>
+nnoremap <leader>i :History<CR>
 nnoremap <leader>: :History:<CR>
 nnoremap <leader>L :Lines<CR>
 nnoremap <leader>t :BTags<CR>
