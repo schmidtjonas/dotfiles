@@ -18,6 +18,8 @@ fi
 eval "$(lua /Users/jonas/.scripts/z.lua/z.lua --init zsh)"
 export _ZL_ECHO=1
 
+export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git --exclude Music --exclude Library"
+
 # export ANDROID_HOME=$HOME/Library/Android/sdk
 # export PATH=$PATH:$ANDROID_HOME/emulator
 # export PATH=$PATH:$ANDROID_HOME/tools
