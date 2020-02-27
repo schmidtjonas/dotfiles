@@ -103,13 +103,14 @@ nmap <leader>gP :Gpush<CR>
 " fzf -------------------------------------------------------
 
 set rtp+=/usr/local/opt/fzf
-nnoremap <leader>f :FZF<CR>
-nnoremap <leader>F :FZF ~<CR>
-nnoremap <leader>b :Buffers<CR>
-nnoremap <leader>i :History<CR>
-nnoremap <leader>: :History:<CR>
-nnoremap <leader>L :Lines<CR>
-nnoremap <leader>t :BTags<CR>
+nnoremap <leader>ff :FZF<CR>
+nnoremap <leader>fe :FZF ~<CR>
+nnoremap <leader>fb :Buffers<CR>
+nnoremap <leader>fh :History<CR>
+nnoremap <leader>f: :History:<CR>
+nnoremap <leader>f/ :History/<CR>
+nnoremap <leader>fl :Lines<CR>
+nnoremap <leader>ft :BTags<CR>
 
 " ncm2 ------------------------------------------------------
 
@@ -188,6 +189,8 @@ colo gruvbox
 set nobackup
 set noswapfile
 set nowritebackup
+
+set autochdir
 
 syntax on
 set mouse=a             " use mouse in vim

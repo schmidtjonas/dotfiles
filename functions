@@ -1,4 +1,4 @@
-function cdf() { # short for `cdfinder`
+cdf() { # short for `cdfinder`
 	cd "$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')";
 }
 
@@ -14,14 +14,13 @@ lfcd () {
 }
 bindkey -s '^o' 'lfcd\n'
 
-# fzf
-
 # edit selected file
 fe() {
     local files
     IFS=$'\n' files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0))
     [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
 }
+fee() { cd; fe }
 
 # open selected file
 fo() {
@@ -32,6 +31,7 @@ fo() {
         open "$file"
     fi
 }
+foe() { cd; fo }
 
 # fd - cd to selected directory
 fc() {
@@ -40,6 +40,7 @@ fc() {
                   -o -type d -print 2> /dev/null | fzf +m) &&
   cd "$dir"
 }
+fce() { cd; fc }
 
 # cd to dir of selected file
 fcd() {
@@ -47,12 +48,14 @@ fcd() {
    local dir
    file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
 }
+fcde() { cd; fcde }
 
 # find in file
 fif() {
   if [ ! "$#" -gt 0 ]; then echo "Need a string to search for!"; return 1; fi
   rg --files-with-matches --no-messages "$1" | fzf --preview "highlight -O ansi -l {} 2> /dev/null | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' || rg --ignore-case --pretty --context 10 '$1' {}"
 }
+fife() { cd; fif }
 
 # fkill - kill process
 fkill() {
@@ -147,7 +150,7 @@ bcr() {
 }
 
 # interactive cd
-function cd() {
+ci() {
     if [[ "$#" != 0 ]]; then
         builtin cd "$@";
         return
@@ -166,3 +169,4 @@ function cd() {
         builtin cd "$dir" &> /dev/null
     done
 }
+cie() { cd; ci }
