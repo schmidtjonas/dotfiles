@@ -190,13 +190,11 @@ set nobackup
 set noswapfile
 set nowritebackup
 
-set autochdir
-
 syntax on
 set mouse=a             " use mouse in vim
 set tabstop=4           " number of visual spaces per TAB
 set softtabstop=4       " number of spaces in tab when editing
-set shiftwidth=4
+set shiftwidth=0
 set expandtab           " tabs are spaces
 set number              " zeilennummern
 set cursorline          " highlight current line
@@ -253,3 +251,13 @@ noremap <space>P "+P
 tnoremap <C-n> <C-\><C-n>
 
 nnoremap <leader>v :source ~/dotfiles/nvimrc<CR>:echo 'nvimrc reloaded'<CR>
+
+function! SetGitDir()
+    cd %:p:h
+    let gitdir=system("git rev-parse --show-toplevel")
+    let isnotgitdir=matchstr(gitdir, '^fatal:.*')
+    if empty(isnotgitdir)
+        cd `=gitdir`
+    endif
+endfunction
+nnoremap <silent> <leader>gcd :call SetGitDir()<CR>

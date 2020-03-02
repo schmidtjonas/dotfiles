@@ -4,4 +4,6 @@ ln -sv ~/dotfiles/nvimrc ~/.config/nvim/init.vim
 ln -sv ~/dotfiles/ideavimrc ~/.ideavimrc
 ln -sv ~/dotfiles/zshrc ~/.config/zsh/.zshrc
 ln -sv ~/dotfiles/zprofile ~/.zprofile
+ln -sv ~/dotfiles/install ~/.scripts/ins
+ln -sv ~/dotfiles/update ~/.scripts/upd
 cp -i ~/dotfiles/karabiner.json ~/.config/karabiner/karabiner.json

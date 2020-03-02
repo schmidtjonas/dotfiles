@@ -20,4 +20,5 @@ alias factor="gfactor"
 alias lc='colorls -1A --sd --gs'
 alias zi="z -i"  # interactive selection
 alias bu="brew update && brew upgrade"
+alias sudo="sudo -E"
 command -v nvim > /dev/null && alias vim='nvim' vimdiff='nvim -d'
