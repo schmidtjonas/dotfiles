@@ -18,7 +18,7 @@ POWERLEVEL9K_HOME_SUB_ICON=''
 POWERLEVEL9K_DIR_PATH_ABSOLUTE='true'
 POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
 
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon ssh root_indicator dir dir_writable vcs newline vi_mode)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon ssh root_indicator dir dir_writable vcs virtualenv newline vi_mode)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
 
 POWERLEVEL9K_VI_MODE_INSERT_BACKGROUND='blue'
@@ -54,3 +54,9 @@ function zle-line-finish {
 zle -N zle-line-init
 zle -N zle-line-finish
 zle -N zle-keymap-select
+
+function virtualenv_info {
+    [ $VIRTUAL_ENV ] && echo '('`basename $VIRTUAL_ENV`') '
+}
+
+export PROMPT='$(virtualenv_info)$PROMPT'

@@ -10,11 +10,11 @@ set updatetime=2000
 " NeoBundle Scripts-----------------------------------------
 
 if has('vim_starting')
-    set runtimepath+=/Users/jonas/.config/nvim/bundle/neobundle.vim
+    set runtimepath+=~/.config/nvim/bundle/neobundle.vim
 endif
 
 " Required:
-call neobundle#begin(expand('/Users/jonas/.config/nvim/bundle'))
+call neobundle#begin(expand('~/.config/nvim/bundle'))
 
 NeoBundleFetch 'Shougo/neobundle.vim'
 
@@ -32,7 +32,7 @@ NeoBundle 'ncm2/ncm2-path'
 NeoBundle 'ncm2/ncm2-pyclang' " not working
 
 NeoBundle 'jiangmiao/auto-pairs'
-NeoBundle 'Chiel92/vim-autoformat'
+" NeoBundle 'Chiel92/vim-autoformat'
 
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'Xuyuanp/nerdtree-git-plugin'
@@ -47,6 +47,8 @@ NeoBundle 'junegunn/fzf.vim'
 
 NeoBundle 'lervag/vimtex'
 NeoBundle '907th/vim-auto-save'
+
+NeoBundle 'qpkorr/vim-bufkill'
 
 call neobundle#end()
 
@@ -128,16 +130,33 @@ inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 set shortmess+=c
 let g:ncm2_pyclang#library_path = '/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
 
-" lint ------------------------------------------------
+" linting with ale ------------------------------------------
 
 let g:ale_lint_on_enter = 0
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_linters = {'python': ['flake8']}
-let python_highlight_all=1
+let g:ale_linters = {
+\   'python': ['flake8'],
+\   'javascript': ['prettier', 'eslint'],
+\   'vue': ['eslint', 'vls'],
+\}
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'javascript': ['prettier', 'eslint'],
+\   'vue': ['eslint'],
+\}
 
-nnoremap = :Autoformat<CR>
+let g:ale_linter_aliases = {'vue': ['vue', 'javascript']}
+
+" let python_highlight_all=1
+
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
+
+nnoremap = :ALEFix<CR>
+
+" nnoremap = :Autoformat<CR>
 
 " nerdtree -----------------------------------------------------
 
@@ -182,6 +201,8 @@ let g:airline#extensions#tabline#enabled = 1
 
 let g:airline_theme = 'gruvbox'
 
+let g:airline#extensions#ale#enabled = 1
+
 " general ---------------------------------------------
 
 colo gruvbox
@@ -201,6 +222,13 @@ set cursorline          " highlight current line
 set lazyredraw          " redraw only when we need to.
 set showmatch           " highlight matching [{()}]
 set scrolloff=10
+set hidden
+
+au BufRead,BufNewFile *.js set ts=2     " change default ts for js or vue files
+au BufRead,BufNewFile *.vue set ts=2
+au BufRead,BufNewFile *.ejs set ts=2
+au BufRead,BufNewFile *.html set ts=2
+au BufRead,BufNewFile *.css set ts=2
 
 set incsearch           " search as characters are entered
 set hlsearch            " highlight matches suchen: /wort<ENTER> oder einfach * und # for next occurence
@@ -208,6 +236,7 @@ set ignorecase
 set smartcase
 set conceallevel=0
 nnoremap <silent> <ESC> :let @/ = ""<CR><ESC>
+
 
 nnoremap <silent> j gj
 nnoremap <silent> k gk
@@ -237,7 +266,8 @@ nnoremap <leader>j <C-w>j
 nnoremap <leader>k <C-w>k
 nnoremap <leader>, :bp<CR>
 nnoremap <leader>. :bn<CR>
-nnoremap <silent> <leader>d :bw<CR>
+nnoremap <silent> <leader>d :BW<CR>
+nnoremap <silent> <leader>D :bw<CR>
 
 nnoremap <leader>q :wq<CR>
 nnoremap <leader>w :w<CR>

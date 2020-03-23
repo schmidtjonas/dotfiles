@@ -1,12 +1,13 @@
 #! /bin/zsh
 
-export PATH="$PATH:/usr/local/sbin:$HOME/.scripts:$HOME/Documents/comprog/CPT:/Applications/Ipe.app/Contents/MacOS"
+export PATH="$PATH:/usr/local/sbin:$HOME/.scripts:$HOME/Documents/comprog/CPT"
 
 export ZSH="$HOME/.oh-my-zsh"
 export DOTFILES="$HOME/dotfiles"
 export ZDOTDIR="$HOME/.config/zsh"
 export UPDATE_ZSH_DAYS=7
 export KEYTIMEOUT=1 # vi-mode
+export LANGUAGE=C
 
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
@@ -15,7 +16,7 @@ if [[ -n $SSH_CONNECTION ]]; then
 fi
 
 # other programs
-eval "$(lua /Users/jonas/.scripts/z.lua/z.lua --init zsh)"
+eval "$(lua $HOME/.scripts/z.lua/z.lua --init zsh)"
 export _ZL_ECHO=1
 
 export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git --exclude Music --exclude Library"

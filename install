@@ -1,9 +1,9 @@
 #! /bin/bash
 
-ln -sv ~/dotfiles/nvimrc ~/.config/nvim/init.vim
-ln -sv ~/dotfiles/ideavimrc ~/.ideavimrc
-ln -sv ~/dotfiles/zshrc ~/.config/zsh/.zshrc
-ln -sv ~/dotfiles/zprofile ~/.zprofile
-ln -sv ~/dotfiles/install ~/.scripts/ins
-ln -sv ~/dotfiles/update ~/.scripts/upd
-cp -i ~/dotfiles/karabiner.json ~/.config/karabiner/karabiner.json
+ln -sv $DOTFILES/nvimrc ~/.config/nvim/init.vim
+ln -sv $DOTFILES/ideavimrc ~/.ideavimrc
+ln -sv $DOTFILES/zshrc ~/.config/zsh/.zshrc
+ln -sv $DOTFILES/zprofile ~/.zprofile
+ln -sv $DOTFILES/install ~/.scripts/ins
+ln -sv $DOTFILES/update ~/.scripts/upd
+cp -i $DOTFILES/karabiner.json ~/.config/karabiner/karabiner.json

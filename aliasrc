@@ -1,12 +1,11 @@
-# alias dotfiles='/usr/local/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias v='$EDITOR'
 alias e='$EDITOR'
-alias vimrc='$EDITOR ~/dotfiles/nvimrc'
-alias nvimrc='$EDITOR ~/dotfiles/nvimrc'
-alias zshrc='$EDITOR ~/dotfiles/zshrc'
-alias aliasrc='$EDITOR ~/dotfiles/aliasrc'
-alias zshdesign='$EDITOR ~/dotfiles/zsh_design'
-alias python="python3"
+alias vimrc='$EDITOR $DOTFILES/nvimrc'
+alias nvimrc='$EDITOR $DOTFILES/nvimrc'
+alias zshrc='$EDITOR $DOTFILES/zshrc'
+alias aliasrc='$EDITOR $DOTFILES/aliasrc'
+alias zshdesign='$EDITOR $DOTFILES/zsh_design'
+alias py="python3"
 alias pip="pip3"
 alias ll="ls -lisa"
 alias cd..="cd ../"
@@ -21,4 +20,5 @@ alias lc='colorls -1A --sd --gs'
 alias zi="z -i"  # interactive selection
 alias bu="brew update && brew upgrade"
 alias sudo="sudo -E"
+alias glr="git pull --rebase"
 command -v nvim > /dev/null && alias vim='nvim' vimdiff='nvim -d'
