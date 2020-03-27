@@ -9,6 +9,10 @@ export UPDATE_ZSH_DAYS=7
 export KEYTIMEOUT=1 # vi-mode
 export LANGUAGE=C
 
+export XDG_CONFIG_HOME="$HOME/.config"
+export BASHRC_CONFIG_DIR="$HOME/.config/bash"
+export NPM_CONFIG_USERCONFIG="$HOME/.config/npm/npmrc"
+
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
  else

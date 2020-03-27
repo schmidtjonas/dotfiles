@@ -1,4 +1,3 @@
-" lan en_GB.ISO8859-15 " use english from `locale -a`, broken with terminal
 let mapleader=" "
 " set rtp+=~/.config/nvim
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
@@ -132,31 +131,33 @@ let g:ncm2_pyclang#library_path = '/Library/Developer/CommandLineTools/usr/lib/l
 
 " linting with ale ------------------------------------------
 
-let g:ale_lint_on_enter = 0
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_linters = {
 \   'python': ['flake8'],
-\   'javascript': ['prettier', 'eslint'],
+\   'javascript': ['tsserver', 'prettier', 'eslint'],
 \   'vue': ['eslint', 'vls'],
+\   'html': ['prettier', 'html-beautify'],
+\   'css': ['prettier', 'stylelint'],
 \}
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'javascript': ['prettier', 'eslint'],
 \   'vue': ['eslint'],
+\   'css': ['stylelint'],
+\   'markdown': ['prettier']
 \}
 
-let g:ale_linter_aliases = {'vue': ['vue', 'javascript']}
+let g:ale_linter_aliases = {'vue': ['vue', 'javascript', 'css']}
+let g:ale_linters_explicit = 1
 
-" let python_highlight_all=1
-
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
-
-nnoremap = :ALEFix<CR>
-
-" nnoremap = :Autoformat<CR>
+nmap <leader>ap <Plug>(ale_previous_wrap)
+nmap <leader>an <Plug>(ale_next_wrap)
+nnoremap <leader>af :ALEFix<CR>
+nnoremap <leader>ag :ALEGoToDefinition<CR>
+nnoremap <leader>ar :ALEFindReferences<CR>
+nnoremap <leader>ah :ALEHover<CR>
 
 " nerdtree -----------------------------------------------------
 
@@ -237,27 +238,10 @@ set smartcase
 set conceallevel=0
 nnoremap <silent> <ESC> :let @/ = ""<CR><ESC>
 
-
 nnoremap <silent> j gj
 nnoremap <silent> k gk
 map B 0
 map E $
-
-" make tabs better
-nnoremap <leader>tn :tabnew<CR>
-nnoremap <leader>tc :tabclose<CR>
-nnoremap <leader>tm :tabmove<CR>
-nnoremap <leader>tN :tabnext<CR>
-nnoremap <leader>tP :tabprevious<CR>
-nnoremap <leader>1 1gt
-nnoremap <leader>2 2gt
-nnoremap <leader>3 3gt
-nnoremap <leader>4 4gt
-nnoremap <leader>5 5gt
-nnoremap <leader>6 6gt
-nnoremap <leader>7 7gt
-nnoremap <leader>8 8gt
-nnoremap <leader>9 9gt
 
 " make buffers better
 nnoremap <leader>h <C-w>h
@@ -266,8 +250,8 @@ nnoremap <leader>j <C-w>j
 nnoremap <leader>k <C-w>k
 nnoremap <leader>, :bp<CR>
 nnoremap <leader>. :bn<CR>
-nnoremap <silent> <leader>d :BW<CR>
-nnoremap <silent> <leader>D :bw<CR>
+nnoremap <silent> <leader>D :BW<CR>
+nnoremap <silent> <leader>d :bw<CR>
 
 nnoremap <leader>q :wq<CR>
 nnoremap <leader>w :w<CR>

@@ -22,3 +22,7 @@ alias bu="brew update && brew upgrade"
 alias sudo="sudo -E"
 alias glr="git pull --rebase"
 command -v nvim > /dev/null && alias vim='nvim' vimdiff='nvim -d'
+
+unalias mv
+unalias cp
+unalias rm
