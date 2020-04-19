@@ -9,7 +9,7 @@ set updatetime=2000
 " NeoBundle Scripts-----------------------------------------
 
 if has('vim_starting')
-    set runtimepath+=~/.config/nvim/bundle/neobundle.vim
+   set runtimepath+=~/.config/nvim/bundle/neobundle.vim
 endif
 
 " Required:
@@ -41,6 +41,12 @@ NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-repeat'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-commentary'
+NeoBundle 'tpope/vim-unimpaired'
+NeoBundle 'tpope/vim-vinegar'
+NeoBundle 'tpope/vim-capslock'
+NeoBundle 'tpope/vim-abolish'
+NeoBundle 'tpope/vim-dadbod'
+NeoBundle 'tpope/vim-sleuth'
 
 NeoBundle 'junegunn/fzf.vim'
 
@@ -63,17 +69,17 @@ let g:auto_save = 0
 let g:auto_save_silent = 1
 let g:auto_save_events = ["TextChangedI", "TextChanged", "InsertLeave"]
 augroup ft_tex
-    au!
-    autocmd FileType tex let b:auto_save = 1
-    autocmd Filetype tex call ncm2#register_source({
-                \ 'name': 'vimtex',
-                \ 'priority': 8,
-                \ 'scope': ['tex'],
-                \ 'mark': 'tex',
-                \ 'word_pattern': '\w+',
-                \ 'complete_pattern': g:vimtex#re#ncm2,
-                \ 'on_complete': ['ncm2#on_complete#omni', 'vimtex#complete#omnifunc'],
-                \ })
+  au!
+  autocmd FileType tex let b:auto_save = 1
+  autocmd Filetype tex call ncm2#register_source({
+        \ 'name': 'vimtex',
+        \ 'priority': 8,
+        \ 'scope': ['tex'],
+        \ 'mark': 'tex',
+        \ 'word_pattern': '\w+',
+        \ 'complete_pattern': g:vimtex#re#ncm2,
+        \ 'on_complete': ['ncm2#on_complete#omni', 'vimtex#complete#omnifunc'],
+        \ })
 augroup END
 
 " gitgutter -----------------------------------------------
@@ -135,18 +141,19 @@ let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_linters = {
-\   'python': ['flake8'],
-\   'javascript': ['tsserver', 'prettier', 'eslint'],
-\   'vue': ['eslint', 'vls'],
-\   'html': ['prettier', 'html-beautify'],
-\   'css': ['prettier', 'stylelint'],
+      \ 'python': ['flake8'],
+      \ 'javascript': ['prettier', 'eslint'],
+      \ 'vue': ['eslint', 'vls'],
+      \ 'html': ['prettier', 'html-beautify'],
+      \ 'css': ['prettier', 'stylelint'],
 \}
 let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'javascript': ['prettier', 'eslint'],
-\   'vue': ['eslint'],
-\   'css': ['stylelint'],
-\   'markdown': ['prettier']
+      \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+      \ 'javascript': ['prettier', 'eslint'],
+      \ 'vue': ['eslint'],
+      \ 'css': ['stylelint'],
+      \ 'markdown': ['prettier'],
+      \ 'python': ['autopep8', 'isort']
 \}
 
 let g:ale_linter_aliases = {'vue': ['vue', 'javascript', 'css']}
@@ -173,23 +180,10 @@ let NERDTreeMinimalUI = 1
 let g:airline_powerline_fonts = 1
 
 if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
+  let g:airline_symbols = {}
 endif
 
-" unicode symbols
-let g:airline_left_sep = '»'
-let g:airline_left_sep = '▶'
-let g:airline_right_sep = '«'
-let g:airline_right_sep = '◀'
-let g:airline_symbols.linenr = '␊'
-let g:airline_symbols.linenr = '␤'
-let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.branch = '⎇'
-let g:airline_symbols.paste = 'ρ'
-let g:airline_symbols.paste = 'Þ'
-let g:airline_symbols.paste = '∥'
 let g:airline_symbols.whitespace = 'Ξ'
-
 " airline symbols
 let g:airline_left_sep = ''
 let g:airline_left_alt_sep = ''
@@ -197,12 +191,17 @@ let g:airline_right_sep = ''
 let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = ''
 let g:airline#extensions#tabline#enabled = 1
 
 let g:airline_theme = 'gruvbox'
 
 let g:airline#extensions#ale#enabled = 1
+let g:airline_section_b = ''
+let g:airline_section_y = ''
+let g:airline_section_z = '%3l/%L:%3v'
+let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
+let g:airline_skip_empty_sections = 1
+" let g:airline#extensions#wordcount#formatter#default#fmt = '%d w'
 
 " general ---------------------------------------------
 
@@ -214,28 +213,23 @@ set nowritebackup
 
 syntax on
 set mouse=a             " use mouse in vim
-set tabstop=4           " number of visual spaces per TAB
-set softtabstop=4       " number of spaces in tab when editing
-set shiftwidth=0
+" set tabstop=4           " number of visual spaces per TAB
+" set softtabstop=4       " number of spaces in tab when editing
+" set shiftwidth=0
 set expandtab           " tabs are spaces
 set number              " zeilennummern
 set cursorline          " highlight current line
 set lazyredraw          " redraw only when we need to.
 set showmatch           " highlight matching [{()}]
-set scrolloff=10
+set scrolloff=5
 set hidden
-
-au BufRead,BufNewFile *.js set ts=2     " change default ts for js or vue files
-au BufRead,BufNewFile *.vue set ts=2
-au BufRead,BufNewFile *.ejs set ts=2
-au BufRead,BufNewFile *.html set ts=2
-au BufRead,BufNewFile *.css set ts=2
+set backspace
+set autoread
 
 set incsearch           " search as characters are entered
 set hlsearch            " highlight matches suchen: /wort<ENTER> oder einfach * und # for next occurence
 set ignorecase
 set smartcase
-set conceallevel=0
 nnoremap <silent> <ESC> :let @/ = ""<CR><ESC>
 
 nnoremap <silent> j gj
@@ -257,21 +251,28 @@ nnoremap <leader>q :wq<CR>
 nnoremap <leader>w :w<CR>
 
 " easy system clipboard copy/paste
-noremap <space>y "+y
-noremap <space>Y "+Y
-noremap <space>p "+p
-noremap <space>P "+P
+noremap <leader>y "+y
+noremap <leader>Y "+Y
+noremap <leader>p "+p
+noremap <leader>P "+P
+
+" -- Misc -----------------------------------------------
 
 tnoremap <C-n> <C-\><C-n>
 
 nnoremap <leader>v :source ~/dotfiles/nvimrc<CR>:echo 'nvimrc reloaded'<CR>
 
 function! SetGitDir()
-    cd %:p:h
-    let gitdir=system("git rev-parse --show-toplevel")
-    let isnotgitdir=matchstr(gitdir, '^fatal:.*')
-    if empty(isnotgitdir)
-        cd `=gitdir`
-    endif
+  cd %:p:h
+  let gitdir=system("git rev-parse --show-toplevel")
+  let isnotgitdir=matchstr(gitdir, '^fatal:.*')
+  if empty(isnotgitdir)
+    cd `=gitdir`
+  endif
 endfunction
 nnoremap <silent> <leader>gcd :call SetGitDir()<CR>
+
+" after a re-source, fix syntax matching issues (concealing brackets):
+if exists('g:loaded_webdevicons')
+  call webdevicons#refresh()
+endif
