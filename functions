@@ -33,8 +33,8 @@ fo() {
 foe() { cd; fo }
 
 # cd to dir of selected file
-fcd() { cd "$(dirname $(fzf))" }
-fce() { cd; fcd }
+fc() { cd "$(dirname "$(fzf)")" }
+fce() { cd; fc }
 
 # find in file
 fif() {

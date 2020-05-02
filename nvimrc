@@ -46,7 +46,7 @@ NeoBundle 'tpope/vim-vinegar'
 NeoBundle 'tpope/vim-capslock'
 NeoBundle 'tpope/vim-abolish'
 NeoBundle 'tpope/vim-dadbod'
-NeoBundle 'tpope/vim-sleuth'
+NeoBundle 'ciaranm/detectindent'
 
 NeoBundle 'junegunn/fzf.vim'
 
@@ -67,7 +67,7 @@ let g:vimtex_quickfix_enabled = 0
 
 let g:auto_save = 0
 let g:auto_save_silent = 1
-let g:auto_save_events = ["TextChangedI", "TextChanged", "InsertLeave"]
+let g:auto_save_events = ["InsertLeave"]
 augroup ft_tex
   au!
   autocmd FileType tex let b:auto_save = 1
@@ -201,7 +201,8 @@ let g:airline_section_y = ''
 let g:airline_section_z = '%3l/%L:%3v'
 let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 let g:airline_skip_empty_sections = 1
-" let g:airline#extensions#wordcount#formatter#default#fmt = '%d w'
+let g:airline#extensions#tabline#show_tab_count = 0
+let g:airline#extensions#tabline#show_close_button = 0
 
 " general ---------------------------------------------
 
@@ -213,11 +214,8 @@ set nowritebackup
 
 syntax on
 set mouse=a             " use mouse in vim
-" set tabstop=4           " number of visual spaces per TAB
-" set softtabstop=4       " number of spaces in tab when editing
-" set shiftwidth=0
+set number
 set expandtab           " tabs are spaces
-set number              " zeilennummern
 set cursorline          " highlight current line
 set lazyredraw          " redraw only when we need to.
 set showmatch           " highlight matching [{()}]
@@ -232,12 +230,17 @@ set ignorecase
 set smartcase
 nnoremap <silent> <ESC> :let @/ = ""<CR><ESC>
 
+set shiftwidth=0
+set tabstop=4
+
+set spelllang=de,en
+autocmd BufEnter * set nospell
+
 nnoremap <silent> j gj
 nnoremap <silent> k gk
 map B 0
 map E $
 
-" make buffers better
 nnoremap <leader>h <C-w>h
 nnoremap <leader>l <C-w>l
 nnoremap <leader>j <C-w>j
@@ -246,6 +249,13 @@ nnoremap <leader>, :bp<CR>
 nnoremap <leader>. :bn<CR>
 nnoremap <silent> <leader>D :BW<CR>
 nnoremap <silent> <leader>d :bw<CR>
+
+set splitbelow splitright
+
+noremap <silent> <left> :vertical resize +3<CR>
+noremap <silent> <right> :vertical resize -3<CR>
+noremap <silent> <up> :resize +3<CR>
+noremap <silent> <down> :resize -3<CR>
 
 nnoremap <leader>q :wq<CR>
 nnoremap <leader>w :w<CR>
@@ -258,6 +268,10 @@ noremap <leader>P "+P
 
 " -- Misc -----------------------------------------------
 
+nnoremap <leader>id :DetectIndent<CR>
+
+" open term in split
+nnoremap <leader>tt :vnew term://zsh<CR>
 tnoremap <C-n> <C-\><C-n>
 
 nnoremap <leader>v :source ~/dotfiles/nvimrc<CR>:echo 'nvimrc reloaded'<CR>
