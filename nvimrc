@@ -54,6 +54,7 @@ NeoBundle 'lervag/vimtex'
 NeoBundle '907th/vim-auto-save'
 
 NeoBundle 'qpkorr/vim-bufkill'
+NeoBundle 'arcticicestudio/nord-vim'
 
 call neobundle#end()
 
@@ -146,6 +147,8 @@ let g:ale_linters = {
       \ 'vue': ['eslint', 'vls'],
       \ 'html': ['prettier', 'html-beautify'],
       \ 'css': ['prettier', 'stylelint'],
+      \ 'cpp': ['clangtidy'],
+      \ 'latex': ['latexindent']
 \}
 let g:ale_fixers = {
       \ '*': ['remove_trailing_lines', 'trim_whitespace'],
@@ -153,14 +156,15 @@ let g:ale_fixers = {
       \ 'vue': ['eslint'],
       \ 'css': ['stylelint'],
       \ 'markdown': ['prettier'],
-      \ 'python': ['autopep8', 'isort']
+      \ 'python': ['autopep8', 'isort'],
+      \ 'latex': ['latexindent']
 \}
 
 let g:ale_linter_aliases = {'vue': ['vue', 'javascript', 'css']}
 let g:ale_linters_explicit = 1
 
-nmap <leader>ap <Plug>(ale_previous_wrap)
-nmap <leader>an <Plug>(ale_next_wrap)
+nmap [a <Plug>(ale_previous_wrap)
+nmap ]a <Plug>(ale_next_wrap)
 nnoremap <leader>af :ALEFix<CR>
 nnoremap <leader>ag :ALEGoToDefinition<CR>
 nnoremap <leader>ar :ALEFindReferences<CR>
@@ -185,10 +189,14 @@ endif
 
 let g:airline_symbols.whitespace = 'Ξ'
 " airline symbols
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
+" let g:airline_left_sep = ''
+" let g:airline_left_alt_sep = ''
+" let g:airline_right_sep = ''
+" let g:airline_right_alt_sep = ''
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline#extensions#tabline#enabled = 1
@@ -206,7 +214,7 @@ let g:airline#extensions#tabline#show_close_button = 0
 
 " general ---------------------------------------------
 
-colo gruvbox
+colo nord
 
 set nobackup
 set noswapfile
@@ -214,7 +222,6 @@ set nowritebackup
 
 syntax on
 set mouse=a             " use mouse in vim
-set number
 set expandtab           " tabs are spaces
 set cursorline          " highlight current line
 set lazyredraw          " redraw only when we need to.
@@ -284,7 +291,9 @@ function! SetGitDir()
     cd `=gitdir`
   endif
 endfunction
-nnoremap <silent> <leader>gcd :call SetGitDir()<CR>
+nnoremap <silent> gcd :call SetGitDir()<CR>
+
+nmap <CR> :a<CR><CR>.<CR>
 
 " after a re-source, fix syntax matching issues (concealing brackets):
 if exists('g:loaded_webdevicons')
