@@ -22,7 +22,7 @@ NeoBundle 'vim-airline/vim-airline-themes'
 NeoBundle 'ryanoasis/vim-devicons'
 NeoBundle 'rafi/awesome-vim-colorschemes'
 
-NeoBundle 'w0rp/ale'
+NeoBundle 'dense-analysis/ale'
 NeoBundle 'roxma/nvim-yarp'
 NeoBundle 'ncm2/ncm2'
 NeoBundle 'ncm2/ncm2-jedi'
@@ -148,6 +148,7 @@ let g:ale_linters = {
       \ 'html': ['prettier', 'html-beautify'],
       \ 'css': ['prettier', 'stylelint'],
       \ 'cpp': ['clangtidy'],
+      \ 'markdown': ['markdownlint'],
       \ 'latex': ['latexindent']
 \}
 let g:ale_fixers = {
@@ -155,8 +156,8 @@ let g:ale_fixers = {
       \ 'javascript': ['prettier', 'eslint'],
       \ 'vue': ['eslint'],
       \ 'css': ['stylelint'],
-      \ 'markdown': ['prettier'],
       \ 'python': ['autopep8', 'isort'],
+      \ 'markdown': ['markdownlint', 'prettier'],
       \ 'latex': ['latexindent']
 \}
 

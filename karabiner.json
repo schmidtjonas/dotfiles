@@ -19,7 +19,7 @@
                         "description": "vim mode+window moving",
                         "manipulators": [
                             { "from": { "simultaneous": [ { "key_code": "right_gui" }, { "key_code": "left_gui" } ] },
-                                "to": { "key_code": "left_control", "modifiers": [ "left_option", "left_shift" ] },
+                                "to": { "key_code": "left_option", "modifiers": [ "left_shift" ] },
                                 "type": "basic" },
                             { "conditions": [ { "name": "vim mode", "type": "variable_if", "value": 0 } ],
                                 "from": { "key_code": "caps_lock" },
