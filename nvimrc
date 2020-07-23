@@ -17,8 +17,8 @@ call neobundle#begin(expand('~/.config/nvim/bundle'))
 
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-NeoBundle 'vim-airline/vim-airline'
-NeoBundle 'vim-airline/vim-airline-themes'
+NeoBundle 'itchyny/lightline.vim'
+NeoBundle 'mengelbrecht/lightline-bufferline'
 NeoBundle 'ryanoasis/vim-devicons'
 NeoBundle 'rafi/awesome-vim-colorschemes'
 
@@ -56,6 +56,9 @@ NeoBundle '907th/vim-auto-save'
 NeoBundle 'qpkorr/vim-bufkill'
 NeoBundle 'arcticicestudio/nord-vim'
 
+NeoBundle 'junegunn/goyo.vim'
+NeoBundle 'junegunn/limelight.vim'
+
 call neobundle#end()
 
 filetype plugin indent on
@@ -82,6 +85,11 @@ augroup ft_tex
         \ 'on_complete': ['ncm2#on_complete#omni', 'vimtex#complete#omnifunc'],
         \ })
 augroup END
+let g:tex_conceal = "admg"
+
+" markdown
+
+autocmd FileType markdown set textwidth=80
 
 " gitgutter -----------------------------------------------
 
@@ -120,21 +128,24 @@ nnoremap <leader>f/ :History/<CR>
 nnoremap <leader>fl :Lines<CR>
 nnoremap <leader>ft :BTags<CR>
 
+command! -bang -nargs=* FLines call fzf#vim#grep('rg --line-number --no-heading '.shellescape(<q-args>), 0, <bang>0)
+nnoremap <leader>fi :FLines<CR>
+
 " ncm2 ------------------------------------------------------
 
-autocmd BufEnter * call ncm2#enable_for_buffer()
-set completeopt=menuone,noselect,noinsert
+ autocmd BufEnter * call ncm2#enable_for_buffer()
+ set completeopt=menuone,noselect,noinsert
 
-let ncm2#popup_delay = 5
-let ncm2#complete_length = [[1, 1]]
+ let ncm2#popup_delay = 5
+ let ncm2#complete_length = [[1, 1]]
 
-" Use <TAB> to select the popup menu:
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+ " Use <TAB> to select the popup menu:
+ inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+ inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 
-" suppress the annoying 'match' and 'Pattern not found' messages
-set shortmess+=c
-let g:ncm2_pyclang#library_path = '/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
+ " suppress the annoying 'match' and 'Pattern not found' messages
+ set shortmess+=c
+ let g:ncm2_pyclang#library_path = '/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
 
 " linting with ale ------------------------------------------
 
@@ -142,22 +153,22 @@ let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_linters = {
-      \ 'python': ['flake8'],
+      \ 'python': ['flake8', 'autopep8'],
       \ 'javascript': ['prettier', 'eslint'],
       \ 'vue': ['eslint', 'vls'],
       \ 'html': ['prettier', 'html-beautify'],
       \ 'css': ['prettier', 'stylelint'],
-      \ 'cpp': ['clangtidy'],
-      \ 'markdown': ['markdownlint'],
-      \ 'latex': ['latexindent']
+      \ 'cpp': ['clangd', 'clang-format'],
 \}
+
 let g:ale_fixers = {
       \ '*': ['remove_trailing_lines', 'trim_whitespace'],
       \ 'javascript': ['prettier', 'eslint'],
       \ 'vue': ['eslint'],
       \ 'css': ['stylelint'],
       \ 'python': ['autopep8', 'isort'],
-      \ 'markdown': ['markdownlint', 'prettier'],
+      \ 'cpp': ['clangtidy', 'clang-format'],
+      \ 'markdown': ['prettier'],
       \ 'latex': ['latexindent']
 \}
 
@@ -180,38 +191,35 @@ map <silent> <leader>n :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let NERDTreeMinimalUI = 1
 
-" airline -----------------------------------------------------
+" goyo limelight ----------------------------------------------
 
-let g:airline_powerline_fonts = 1
+autocmd! User GoyoEnter nested set eventignore=FocusGained
+autocmd! User GoyoLeave nested set eventignore=
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
+let g:limelight_conceal_ctermfg = 'gray'
 
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
+nnoremap <silent> <leader>zz :Goyo<CR>
 
-let g:airline_symbols.whitespace = 'Ξ'
-" airline symbols
-" let g:airline_left_sep = ''
-" let g:airline_left_alt_sep = ''
-" let g:airline_right_sep = ''
-" let g:airline_right_alt_sep = ''
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
-let g:airline#extensions#tabline#enabled = 1
+" lightline -------------------------------------------
 
-let g:airline_theme = 'gruvbox'
+let g:lightline = {
+      \ 'colorscheme': 'nord',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'tabline': {
+      \   'left': [ ['buffers'] ]
+      \ },
+      \ 'component_expand': {
+      \   'buffers': 'lightline#bufferline#buffers'
+      \ },
+      \ 'component_type': {
+      \   'buffers': 'tabsel'
+      \ }
+      \ }
 
-let g:airline#extensions#ale#enabled = 1
-let g:airline_section_b = ''
-let g:airline_section_y = ''
-let g:airline_section_z = '%3l/%L:%3v'
-let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
-let g:airline_skip_empty_sections = 1
-let g:airline#extensions#tabline#show_tab_count = 0
-let g:airline#extensions#tabline#show_close_button = 0
+set showtabline=2
 
 " general ---------------------------------------------
 
@@ -220,6 +228,7 @@ colo nord
 set nobackup
 set noswapfile
 set nowritebackup
+set noshowmode
 
 syntax on
 set mouse=a             " use mouse in vim
@@ -229,7 +238,7 @@ set lazyredraw          " redraw only when we need to.
 set showmatch           " highlight matching [{()}]
 set scrolloff=5
 set hidden
-set backspace
+" set backspace
 set autoread
 
 set incsearch           " search as characters are entered
@@ -277,6 +286,7 @@ noremap <leader>P "+P
 " -- Misc -----------------------------------------------
 
 nnoremap <leader>id :DetectIndent<CR>
+nnoremap <leader>gq vipgq
 
 " open term in split
 nnoremap <leader>tt :vnew term://zsh<CR>

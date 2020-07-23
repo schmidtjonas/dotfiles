@@ -1,6 +1,6 @@
 #! /bin/zsh
 
-export PATH="$PATH:/usr/local/sbin:$HOME/.scripts:$HOME/Documents/comprog/CPT"
+export PATH="$PATH:/usr/local/sbin:/usr/local/opt/llvm/bin/:$HOME/.scripts:$HOME/Documents/comprog/CPT"
 
 export ZSH="$HOME/.oh-my-zsh"
 export DOTFILES="$HOME/dotfiles"
@@ -41,3 +41,12 @@ if [ -f "${HOME}/.gnupg/.gpg-agent-info" ]; then
 fi
 export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/usr/local/share/zsh-syntax-highlighting/highlighters
 zstyle ':bracketed-paste-magic' active-widgets '.self-*'
+
+##
+# Your previous /Users/jonas/.zprofile file was backed up as /Users/jonas/.zprofile.macports-saved_2020-07-13_at_21:58:10
+##
+
+# MacPorts Installer addition on 2020-07-13_at_21:58:10: adding an appropriate PATH variable for use with MacPorts.
+export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+# Finished adapting your PATH environment variable for use with MacPorts.
+
