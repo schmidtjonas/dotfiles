@@ -1,6 +1,6 @@
 #! /bin/zsh
 
-export PATH="$PATH:/usr/local/sbin:/usr/local/opt/llvm/bin/:$HOME/.scripts:$HOME/Documents/comprog/CPT"
+export PATH="$HOME/.scripts:/usr/local/opt/python/libexec/bin:$PATH:/usr/local/sbin:/usr/local/opt/llvm/bin/:$HOME/Documents/comprog/CPT:$HOME/.cargo/bin:/Applications/Ipe.app/Contents/MacOS"
 
 export ZSH="$HOME/.oh-my-zsh"
 export DOTFILES="$HOME/dotfiles"

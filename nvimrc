@@ -1,4 +1,5 @@
 let mapleader=" "
+
 " set rtp+=~/.config/nvim
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 let &packpath = &runtimepath
@@ -21,6 +22,10 @@ NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'mengelbrecht/lightline-bufferline'
 NeoBundle 'ryanoasis/vim-devicons'
 NeoBundle 'rafi/awesome-vim-colorschemes'
+NeoBundle 'arcticicestudio/nord-vim'
+NeoBundle 'franbach/miramare'
+NeoBundle 'sainnhe/forest-night'
+NeoBundle 'rakr/vim-one'
 
 NeoBundle 'dense-analysis/ale'
 NeoBundle 'roxma/nvim-yarp'
@@ -29,8 +34,10 @@ NeoBundle 'ncm2/ncm2-jedi'
 NeoBundle 'ncm2/ncm2-bufword'
 NeoBundle 'ncm2/ncm2-path'
 NeoBundle 'ncm2/ncm2-pyclang' " not working
+NeoBundle 'ncm2/ncm2-racer'
 
 NeoBundle 'jiangmiao/auto-pairs'
+NeoBundle 'AndrewRadev/splitjoin.vim'
 " NeoBundle 'Chiel92/vim-autoformat'
 
 NeoBundle 'scrooloose/nerdtree'
@@ -53,11 +60,9 @@ NeoBundle 'junegunn/fzf.vim'
 NeoBundle 'lervag/vimtex'
 NeoBundle '907th/vim-auto-save'
 
-NeoBundle 'qpkorr/vim-bufkill'
-NeoBundle 'arcticicestudio/nord-vim'
-
 NeoBundle 'junegunn/goyo.vim'
 NeoBundle 'junegunn/limelight.vim'
+NeoBundle 'mhinz/vim-startify'
 
 call neobundle#end()
 
@@ -66,6 +71,7 @@ NeoBundleCheck
 
 " latex --------------------------------------------------
 
+autocmd FileType latex set textwidth=80
 let g:vimtex_view_method = 'skim'
 let g:vimtex_quickfix_enabled = 0
 
@@ -87,7 +93,34 @@ augroup ft_tex
 augroup END
 let g:tex_conceal = "admg"
 
-" markdown
+" context ------------------------------------------------
+" see ftplugin/context.vim
+
+autocmd FileType tex set textwidth=80
+autocmd FileType context set textwidth=80
+
+fun! ConTeXtClean()
+  let l:currdir = expand("%:p:h")
+  let l:tmpdirs = ['.'] " Temporary directories
+  let l:suffixes = ['aux', 'bbl', 'blg', 'fls', 'log', 'tuc', 'fdb_latexmk', 'synctex', 'synctex.gz', 'out'] " Suffixes of temporary files
+  for ff in glob(l:currdir . '/*.{' . join(l:suffixes, ',') . '}', 1, 1)
+    call delete(ff)
+  endfor
+  for dd in l:tmpdirs
+    let l:subdir = l:currdir . '/' . dd
+    if isdirectory(l:subdir)
+      for ff in glob(l:subdir . '/*.{' . join(l:suffixes, ',') . '}', 1, 1)
+        call delete(ff)
+      endfor
+    endif
+    call delete(l:subdir) " Delete directory (only if empty)
+  endfor
+  echomsg "Aux files removed"
+endf
+
+nnoremap <silent> <leader>tc :<c-u>call ConTeXtClean()<cr>
+
+" markdown -----------------------------------------------
 
 autocmd FileType markdown set textwidth=80
 
@@ -131,6 +164,8 @@ nnoremap <leader>ft :BTags<CR>
 command! -bang -nargs=* FLines call fzf#vim#grep('rg --line-number --no-heading '.shellescape(<q-args>), 0, <bang>0)
 nnoremap <leader>fi :FLines<CR>
 
+let g:fzf_layout = { 'down': '~40%' }
+
 " ncm2 ------------------------------------------------------
 
  autocmd BufEnter * call ncm2#enable_for_buffer()
@@ -155,25 +190,28 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_linters = {
       \ 'python': ['flake8', 'autopep8'],
       \ 'javascript': ['prettier', 'eslint'],
+      \ 'rust': ['rls'],
       \ 'vue': ['eslint', 'vls'],
       \ 'html': ['prettier', 'html-beautify'],
       \ 'css': ['prettier', 'stylelint'],
-      \ 'cpp': ['clangd', 'clang-format'],
+      \ 'cpp': ['clangd', 'clang-format', 'clang'],
 \}
 
 let g:ale_fixers = {
       \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+      \ 'python': ['autopep8'],
       \ 'javascript': ['prettier', 'eslint'],
+      \ 'rust': ['rustfmt'],
       \ 'vue': ['eslint'],
       \ 'css': ['stylelint'],
-      \ 'python': ['autopep8', 'isort'],
-      \ 'cpp': ['clangtidy', 'clang-format'],
+      \ 'cpp': ['clangtidy', 'clang-format', 'clang'],
       \ 'markdown': ['prettier'],
       \ 'latex': ['latexindent']
 \}
 
 let g:ale_linter_aliases = {'vue': ['vue', 'javascript', 'css']}
 let g:ale_linters_explicit = 1
+let g:ale_rust_rls_toolchain = 'stable'
 
 nmap [a <Plug>(ale_previous_wrap)
 nmap ]a <Plug>(ale_next_wrap)
@@ -206,10 +244,16 @@ nnoremap <silent> <leader>zz :Goyo<CR>
 let g:lightline = {
       \ 'colorscheme': 'nord',
       \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'filename', 'modified' ] ]
+      \   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'filename', 'modified' ] ],
+      \   'right': [ [ 'lineinfo' ],
+      \              [ 'percent' ],
+      \              [ 'gitbranch', 'filetype' ] ]
       \ },
       \ 'tabline': {
       \   'left': [ ['buffers'] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead'
       \ },
       \ 'component_expand': {
       \   'buffers': 'lightline#bufferline#buffers'
@@ -224,6 +268,7 @@ set showtabline=2
 " general ---------------------------------------------
 
 colo nord
+set background=dark
 
 set nobackup
 set noswapfile
@@ -262,8 +307,8 @@ nnoremap <leader>h <C-w>h
 nnoremap <leader>l <C-w>l
 nnoremap <leader>j <C-w>j
 nnoremap <leader>k <C-w>k
-nnoremap <leader>, :bp<CR>
-nnoremap <leader>. :bn<CR>
+nnoremap <silent> <leader>, :bp<CR>
+nnoremap <silent> <leader>. :bn<CR>
 nnoremap <silent> <leader>D :BW<CR>
 nnoremap <silent> <leader>d :bw<CR>
 
@@ -271,8 +316,8 @@ set splitbelow splitright
 
 noremap <silent> <left> :vertical resize +3<CR>
 noremap <silent> <right> :vertical resize -3<CR>
-noremap <silent> <up> :resize +3<CR>
-noremap <silent> <down> :resize -3<CR>
+noremap <silent> <down> :resize +3<CR>
+noremap <silent> <up> :resize -3<CR>
 
 nnoremap <leader>q :wq<CR>
 nnoremap <leader>w :w<CR>
@@ -285,8 +330,17 @@ noremap <leader>P "+P
 
 " -- Misc -----------------------------------------------
 
+let g:startify_session_dir = '~/.config/nvim/session'
+let g:startify_lists = [
+          \ { 'type': 'sessions',  'header': ['   Sessions']       },
+          \ { 'type': 'files',     'header': ['   Files']            },
+          \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+          \ ]
+
 nnoremap <leader>id :DetectIndent<CR>
 nnoremap <leader>gq vipgq
+
+nnoremap <leader>o :! open 
 
 " open term in split
 nnoremap <leader>tt :vnew term://zsh<CR>
