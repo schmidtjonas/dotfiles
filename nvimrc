@@ -1,5 +1,6 @@
 let mapleader=" "
 
+
 " set rtp+=~/.config/nvim
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 let &packpath = &runtimepath
@@ -26,6 +27,7 @@ NeoBundle 'arcticicestudio/nord-vim'
 NeoBundle 'franbach/miramare'
 NeoBundle 'sainnhe/forest-night'
 NeoBundle 'rakr/vim-one'
+NeoBundle 'blueshirts/darcula'
 
 NeoBundle 'dense-analysis/ale'
 NeoBundle 'roxma/nvim-yarp'
@@ -35,6 +37,7 @@ NeoBundle 'ncm2/ncm2-bufword'
 NeoBundle 'ncm2/ncm2-path'
 NeoBundle 'ncm2/ncm2-pyclang' " not working
 NeoBundle 'ncm2/ncm2-racer'
+NeoBundle 'ncm2/ncm2-ultisnips'
 
 NeoBundle 'jiangmiao/auto-pairs'
 NeoBundle 'AndrewRadev/splitjoin.vim'
@@ -59,6 +62,7 @@ NeoBundle 'junegunn/fzf.vim'
 
 NeoBundle 'lervag/vimtex'
 NeoBundle '907th/vim-auto-save'
+NeoBundle 'sirver/ultisnips'
 
 NeoBundle 'junegunn/goyo.vim'
 NeoBundle 'junegunn/limelight.vim'
@@ -71,16 +75,21 @@ NeoBundleCheck
 
 " latex --------------------------------------------------
 
-autocmd FileType latex set textwidth=80
+autocmd FileType tex set spell
+autocmd FileType latex set spell
+autocmd FileType plaintex set spell
 let g:vimtex_view_method = 'skim'
-let g:vimtex_quickfix_enabled = 0
+let g:vimtex_quickfix_enabled = 1
+let g:vimtex_compiler_progname='nvr'
+let g:vimtex_quickfix_latexlog = {'default' : 0, 'references': 1}
+let g:vimtex_quickfix_autoclose_after_keystrokes = 20
 
 let g:auto_save = 0
 let g:auto_save_silent = 1
 let g:auto_save_events = ["InsertLeave"]
 augroup ft_tex
   au!
-  autocmd FileType tex let b:auto_save = 1
+  " autocmd FileType tex let b:auto_save = 1
   autocmd Filetype tex call ncm2#register_source({
         \ 'name': 'vimtex',
         \ 'priority': 8,
@@ -91,13 +100,21 @@ augroup ft_tex
         \ 'on_complete': ['ncm2#on_complete#omni', 'vimtex#complete#omnifunc'],
         \ })
 augroup END
-let g:tex_conceal = "admg"
+" let g:tex_conceal = "admg"
+
+set conceallevel=1
+let g:tex_conceal='abdmg'
+
+let g:vimtex_complete_recursive_bib = 1
+" forward search
+nnoremap <leader>ls :w<CR>:silent !/Applications/Skim.app/Contents/SharedSupport/displayline <C-r>=line('.')<CR> %<.pdf<CR>
+
+let g:UltiSnipsExpandTrigger = '<c-j>'
+let g:UltiSnipsJumpForwardTrigger = '<s-tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
 
 " context ------------------------------------------------
 " see ftplugin/context.vim
-
-autocmd FileType tex set textwidth=80
-autocmd FileType context set textwidth=80
 
 fun! ConTeXtClean()
   let l:currdir = expand("%:p:h")
@@ -177,6 +194,8 @@ let g:fzf_layout = { 'down': '~40%' }
  " Use <TAB> to select the popup menu:
  inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
  inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+" Parameter expansion for selected entry via Enter
+inoremap <silent> <expr> <CR> (pumvisible() ? ncm2_ultisnips#expand_or("\<CR>", 'n') : "\<CR>")
 
  " suppress the annoying 'match' and 'Pattern not found' messages
  set shortmess+=c
@@ -206,7 +225,8 @@ let g:ale_fixers = {
       \ 'css': ['stylelint'],
       \ 'cpp': ['clangtidy', 'clang-format', 'clang'],
       \ 'markdown': ['prettier'],
-      \ 'latex': ['latexindent']
+      \ 'tex': ['latexindent'],
+      \ 'bib': ['bibclean']
 \}
 
 let g:ale_linter_aliases = {'vue': ['vue', 'javascript', 'css']}
@@ -242,7 +262,7 @@ nnoremap <silent> <leader>zz :Goyo<CR>
 " lightline -------------------------------------------
 
 let g:lightline = {
-      \ 'colorscheme': 'nord',
+      \ 'colorscheme': 'miramare',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'filename', 'modified' ] ],
       \   'right': [ [ 'lineinfo' ],
@@ -267,7 +287,7 @@ set showtabline=2
 
 " general ---------------------------------------------
 
-colo nord
+colo miramare
 set background=dark
 
 set nobackup
@@ -295,8 +315,8 @@ nnoremap <silent> <ESC> :let @/ = ""<CR><ESC>
 set shiftwidth=0
 set tabstop=4
 
-set spelllang=de,en
-autocmd BufEnter * set nospell
+set spelllang=en
+inoremap ?? <c-g>u<Esc>[s1z=`]a<c-g>u
 
 nnoremap <silent> j gj
 nnoremap <silent> k gk
@@ -331,11 +351,27 @@ noremap <leader>P "+P
 " -- Misc -----------------------------------------------
 
 let g:startify_session_dir = '~/.config/nvim/session'
+let g:startify_session_persistence = 1
+let g:startify_change_to_vcs_root = 0
+let g:startify_files_number = 10
+let g:startify_fortune_use_unicode = 1
+let g:startify_enable_special = 1
+let g:startify_session_sort = 1
+let g:startify_custom_indices = map(range(1,100), 'string(v:val)')
 let g:startify_lists = [
           \ { 'type': 'sessions',  'header': ['   Sessions']       },
-          \ { 'type': 'files',     'header': ['   Files']            },
+          \ { 'type': 'files',     'header': ['   Recent Files']            },
           \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+          \ { 'type': 'commands',  'header': ['   Commands']       },
           \ ]
+let g:startify_bookmarks = [ {'bn': '~/dotfiles/nvimrc'}, {'bd': '~/dotfiles'}, {'bs': '~/.ssh/config'} ]
+
+nnoremap <leader>ss :SSave<CR>
+nnoremap <leader>sq :SClose<CR>
+
+nnoremap <leader>sd :set spelllang=de<CR>
+nnoremap <leader>se :set spelllang=en<CR>
+nnoremap <leader>sn :set nospell<CR>
 
 nnoremap <leader>id :DetectIndent<CR>
 nnoremap <leader>gq vipgq
