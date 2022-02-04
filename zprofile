@@ -2,12 +2,15 @@
 
 export PATH="$HOME/.scripts:/usr/local/opt/python/libexec/bin:$PATH:/usr/local/sbin:/usr/local/opt/llvm/bin/:$HOME/Documents/comprog/CPT:$HOME/.cargo/bin:/Applications/Ipe.app/Contents/MacOS"
 
+export MONGO_HOST="mongodb://jschmidt:w3%25z%21VQ%40UXHsXRnH@localhost:27017/?serverSelectionTimeoutMS=5000&connectTimeoutMS=10000&authSource=admin&authMechanism=SCRAM-SHA-256"
+
 export ZSH="$HOME/.oh-my-zsh"
 export DOTFILES="$HOME/dotfiles"
 export ZDOTDIR="$HOME/.config/zsh"
 export UPDATE_ZSH_DAYS=7
 export KEYTIMEOUT=1 # vi-mode
 export LANGUAGE=C
+export CXX=clang++
 
 export XDG_CONFIG_HOME="$HOME/.config"
 export BASHRC_CONFIG_DIR="$HOME/.config/bash"
@@ -22,6 +25,10 @@ fi
 # other programs
 eval "$(lua $HOME/.scripts/z.lua/z.lua --init zsh)"
 export _ZL_ECHO=1
+eval "$(navi widget zsh)"
+
+export CPLUS_INCLUDE_PATH=/usr/local/opt/llvm/include/c++/v1:/Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/
+export LIBRARY_PATH=$LIBRARY_PATH:/Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/lib
 
 export FZF_DEFAULT_COMMAND="fd --type f --follow --exclude .git --exclude Music --exclude Library --exclude .Trash"
 export FZF_BASE=/usr/local/bin/fzf
