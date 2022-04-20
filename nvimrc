@@ -187,7 +187,7 @@ let g:ale_linters = {
     \ 'vue': ['eslint', 'vls'],
     \ 'html': ['prettier', 'html-beautify'],
     \ 'css': ['prettier', 'stylelint'],
-    \ 'cpp': ['clangd', 'clang-format', 'clang'],
+    \ 'cpp': ['clang-format', 'clang'],
 \ }
 
 let g:ale_fixers = {
@@ -197,7 +197,7 @@ let g:ale_fixers = {
     \ 'rust': ['rustfmt'],
     \ 'vue': ['eslint'],
     \ 'css': ['stylelint'],
-    \ 'cpp': ['clangtidy', 'clang-format', 'clang'],
+    \ 'cpp': ['clangtidy', 'clang-format'],
     \ 'markdown': ['prettier'],
     \ 'tex': ['latexindent'],
     \ 'bib': ['bibclean']
@@ -206,6 +206,7 @@ let g:ale_fixers = {
 let g:ale_linter_aliases = {'vue': ['vue', 'javascript', 'css']}
 let g:ale_linters_explicit = 1
 let g:ale_rust_rls_toolchain = 'stable'
+let g:ale_lint_on_text_changed = 'never'
 
 nmap [a <Plug>(ale_previous_wrap)
 nmap ]a <Plug>(ale_next_wrap)
@@ -226,6 +227,9 @@ require'nvim-tree'.setup {
   open_on_tab         = false,
   hijack_cursor       = false,
   update_cwd          = false,
+  git                 = {
+    ignore = false
+  },
   update_to_buf_dir   = {
     enable = true,
     auto_open = true,

@@ -27,7 +27,7 @@ eval "$(lua $HOME/.scripts/z.lua/z.lua --init zsh)"
 export _ZL_ECHO=1
 eval "$(navi widget zsh)"
 
-export CPLUS_INCLUDE_PATH=/usr/local/opt/llvm/include/c++/v1:/Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/
+export CPLUS_INCLUDE_PATH="/usr/local/opt/llvm/include/c++/v1:/Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/:/System/Volumes/Data/usr/local/Cellar/boost/1.78.0_1/include/"
 export LIBRARY_PATH=$LIBRARY_PATH:/Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/lib
 
 export FZF_DEFAULT_COMMAND="fd --type f --follow --exclude .git --exclude Music --exclude Library --exclude .Trash"
