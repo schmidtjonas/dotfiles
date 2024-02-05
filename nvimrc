@@ -1,4 +1,5 @@
 let mapleader=" "
+" let maplocalleader=\\
 
 " set rtp+=~/.config/nvim
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
@@ -26,8 +27,14 @@ NeoBundle 'franbach/miramare'
 NeoBundle 'sainnhe/forest-night'
 NeoBundle 'rakr/vim-one'
 NeoBundle 'blueshirts/darcula'
-NeoBundle 'nvim-treesitter/nvim-treesitter'
+" NeoBundle 'nvim-treesitter/nvim-treesitter'
 NeoBundle 'lukas-reineke/indent-blankline.nvim'
+
+" NeoBundle 'neovim/nvim-lspconfig'
+" NeoBundle 'Julian/lean.nvim'
+" NeoBundle 'ms-jpq/coq_nvim', {'branch': 'coq'}
+" NeoBundle 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
+" NeoBundle 'nvim-lua/plenary.nvim'
 
 NeoBundle 'dense-analysis/ale'
 NeoBundle 'roxma/nvim-yarp'
@@ -56,12 +63,15 @@ NeoBundle 'tpope/vim-vinegar'
 NeoBundle 'tpope/vim-abolish'
 NeoBundle 'tpope/vim-dadbod'
 NeoBundle 'ciaranm/detectindent'
+" NeoBundle 'ludovicchabant/vim-gutentags'
 
 NeoBundle 'junegunn/fzf.vim'
 
 NeoBundle 'lervag/vimtex'
-NeoBundle '907th/vim-auto-save'
+" NeoBundle '907th/vim-auto-save'
 NeoBundle 'sirver/ultisnips'
+
+NeoBundle 'kaarmu/typst.vim'
 
 NeoBundle 'junegunn/goyo.vim'
 NeoBundle 'junegunn/limelight.vim'
@@ -84,9 +94,9 @@ let g:vimtex_compiler_progname='nvr'
 let g:vimtex_quickfix_open_on_warning = 0
 let g:vimtex_quickfix_autoclose_after_keystrokes = 20
 
-let g:auto_save = 0
-let g:auto_save_silent = 1
-let g:auto_save_events = ["InsertLeave"]
+" let g:auto_save = 0
+" let g:auto_save_silent = 1
+" let g:auto_save_events = ["InsertLeave"]
 augroup ft_tex
     au!
     " autocmd FileType tex let b:auto_save = 1
@@ -108,8 +118,9 @@ let g:vimtex_complete_recursive_bib = 1
 
 nnoremap \ls :w<CR>:silent !/Applications/Skim.app/Contents/SharedSupport/displayline <C-r>=line('.')<CR> %<.pdf<CR>
 
-let g:UltiSnipsExpandTrigger = '<c-j>'
-let g:UltiSnipsJumpForwardTrigger = '<s-tab>'
+let g:UltiSnipsExpandTrigger = '<c-e>'
+let g:UltiSnipsJumpForwardTrigger = '<c-j>'
+imap <c-k> <Nop>
 let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
 
 " gitgutter --------------------------------------
@@ -221,19 +232,12 @@ lua << EOF
 require'nvim-tree'.setup {
   disable_netrw       = true,
   hijack_netrw        = true,
-  open_on_setup       = false,
-  ignore_ft_on_setup  = {},
-  auto_close          = false,
   open_on_tab         = false,
   hijack_cursor       = false,
   update_cwd          = false,
   git                 = {
     ignore = false
-  },
-  update_to_buf_dir   = {
-    enable = true,
-    auto_open = true,
-  },
+  }
 }
 EOF
 nnoremap <silent> <leader>n :NvimTreeToggle<CR>
@@ -303,8 +307,11 @@ let s:disable_statusline = 1
 " general ----------------------------------------
 
 " set termguicolors
-colo miramare
+colo oceanic_material
 set background=dark
+set cursorline
+hi CursorLine term=bold cterm=bold guibg=Grey40
+
 
 set nobackup
 set noswapfile
@@ -314,7 +321,6 @@ set noshowmode
 syntax on
 set mouse=a             " use mouse in vim
 set expandtab           " tabs are spaces
-set cursorline          " highlight current line
 set lazyredraw          " redraw only when we need to.
 set showmatch           " highlight matching [{()}]
 set scrolloff=5
@@ -364,7 +370,11 @@ noremap <leader>Y "+Y
 noremap <leader>p "+p
 noremap <leader>P "+P
 
+noremap gp "0p
+
 " -- Misc ---------------------------------------
+
+let g:gutentags_cache_dir = '~/.config/ctags'
 
 nnoremap <leader>sd :set spelllang=de<CR>
 nnoremap <leader>se :set spelllang=en<CR>
@@ -397,3 +407,49 @@ nmap <CR> :a<CR><CR>.<CR>
 if exists('g:loaded_webdevicons')
     call webdevicons#refresh()
 endif
+
+
+" " new coq and lsp stuff
+
+" sign define LspDiagnosticsSignError text=🔴
+" sign define LspDiagnosticsSignWarning text=🟠
+" sign define LspDiagnosticsSignInformation text=🔵
+" sign define LspDiagnosticsSignHint text=🟢
+
+" nnoremap <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>
+" nnoremap <silent> gb    <cmd>lua vim.lsp.buf.implementation()<CR>
+" nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+" nnoremap <silent> gD    <cmd>lua vim.lsp.buf.declaration()<CR>
+" nnoremap <silent> gk    <cmd>lua vim.lsp.buf.hover()<CR>
+" nnoremap <silent> gf    <cmd>lua vim.lsp.buf.formatting()<CR>
+" nnoremap <silent> gn    <cmd>lua vim.lsp.buf.rename()<CR>
+
+" nnoremap <silent> ga    <cmd>lua vim.lsp.buf.code_action()<CR>
+" xmap <silent> ga        <cmd>lua vim.lsp.buf.range_code_action()<CR>
+
+" inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" " Set completeopt to have a better completion experience
+" set completeopt=menuone,noinsert,noselect
+
+" " Avoid showing message extra message when using completion
+" set shortmess+=c
+
+" " Set recommended to false
+" let g:coq_settings = {
+"             \"keymap.recommended": v:false,
+"             \"keymap.jump_to_mark": "gm",
+"             \"auto_start": "shut-up",
+"             \}
+
+" " Keybindings
+" ino <silent><expr> <Esc>   pumvisible() ? "\<C-e><Esc>" : "\<Esc>"
+" ino <silent><expr> <C-c>   pumvisible() ? "\<C-e><C-c>" : "\<C-c>"
+" ino <silent><expr> <BS>    pumvisible() ? "\<C-e><BS>"  : "\<BS>"
+" ino <silent><expr> <CR>    pumvisible() ? (complete_info().selected == -1 ? "\<C-e><CR>" : "\<C-y>") : "\<CR>"
+" ino <silent><expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+" ino <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<BS>"
+
+" luafile ~/.config/nvim/lsp_config.lua
+
